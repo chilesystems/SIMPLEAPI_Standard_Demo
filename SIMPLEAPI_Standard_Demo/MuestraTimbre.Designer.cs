@@ -80,7 +80,6 @@
             this.Name = "MuestraTimbre";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Muestra de Timbre";
-            this.Load += new System.EventHandler(this.MuestraTimbre_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTimbre)).EndInit();
             this.ResumeLayout(false);
 

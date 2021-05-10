@@ -7,8 +7,8 @@ namespace TestUnitarios
     public class GeneracionDTE
     {
         Handler handler = new Handler();
-        private string pathCAF_Boletas = "Files/CAF_boletas_1_50.xml";
-        private string pathCertificado = "Files/CertificadoGonzalo2021.pfx";
+        private string pathCAF_Boletas = System.IO.Path.Combine("Files", "CAF_boletas_1_50.xml");
+        private string pathCertificado = System.IO.Path.Combine("Files", "CertificadoDigital.pfx");
 
         [Fact]
         public void TimbreCorrecto()
@@ -31,6 +31,7 @@ namespace TestUnitarios
         [Fact]
         public async void FirmaCorrecta()
         {
+            if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 1);
             handler.GenerateDetails(dte);
             dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
@@ -42,6 +43,7 @@ namespace TestUnitarios
         [Fact]
         public async void FirmaPasswordIncorrecta()
         {
+            if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 1);
             handler.GenerateDetails(dte);
             dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);

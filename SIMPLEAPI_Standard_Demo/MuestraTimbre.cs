@@ -24,53 +24,37 @@ namespace SIMPLEAPI_Demo
 
         private void botonCargarDTE_Click(object sender, EventArgs e)
         {
-            string outMessage = "";
             openFileDialog1.ShowDialog();
             string pathFile = openFileDialog1.FileName;
             string xml = File.ReadAllText(pathFile, Encoding.GetEncoding("ISO-8859-1"));
 
-            var dte = XmlHandler.DeserializeFromString<DTE>(xml);            
-            //pictureBoxTimbre.BackgroundImage = dte.Documento.TimbrePDF417(out outMessage);
-
-            //dte.Exportaciones.TimbrePDF417(out outMessage);
-
+            var dte = XmlHandler.DeserializeFromString<DTE>(xml);
+            using (var ms = new MemoryStream(dte.Documento.TimbrePDF417(out string outMessage)))
+            {
+                pictureBoxTimbre.BackgroundImage = Image.FromStream(ms);
+            }
             
-        }
-
-        private void MuestraTimbre_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void botonValidar_Click(object sender, EventArgs e)
         {
-            string outMessage = "";
-            //openFileDialog1.Title = "Seleccione XML de timbre";
-            //openFileDialog1.ShowDialog();
-            //string pathFile = openFileDialog1.FileName;
-            //string xmlTimbreAux = File.ReadAllText(pathFile, Encoding.GetEncoding("ISO-8859-1"));
-            //var dteAux = ChileSystems.DTE.Engine.XML.XmlHandler.DeserializeFromString<ChileSystems.DTE.Engine.Documento.DTE>(xmlTimbreAux);
-            //string xmlTimbre = dteAux.Documento.TED.DatosBasicos.ToString();
-            //string xmlTimbre = File.ReadAllText("C:\\Users\\Gonzalo\\Desktop\\sisfredo\\TmpTimbreCert_89.xml", Encoding.GetEncoding("ISO-8859-1"));
-
             openFileDialog1.Title = "Seleccione XML de CAF";
             openFileDialog1.ShowDialog();
             string pathFileCaf = openFileDialog1.FileName;
             string xmlCAF = File.ReadAllText(pathFileCaf, Encoding.GetEncoding("ISO-8859-1"));
 
-            openFileDialog1.Title = "Seleccione XML de EnvioBoleta";
+            openFileDialog1.Title = "Seleccione XML de DTE";
             openFileDialog1.ShowDialog();
-            string pathFileEnvioBoleta = openFileDialog1.FileName;
-            string xmlEnvioBoleta = File.ReadAllText(pathFileEnvioBoleta, Encoding.GetEncoding("ISO-8859-1"));
+            string pathFileDTE = openFileDialog1.FileName;
+            string xmlDTE = File.ReadAllText(pathFileDTE, Encoding.GetEncoding("ISO-8859-1"));
 
-            var envioBoleta = XmlHandler.TryDeserializeFromString<EnvioBoleta>(xmlEnvioBoleta);
-            string firmadelDD = envioBoleta.SetDTE.DTEs[0].Documento.TED.FirmaDigital.Firma;
-
+            var objetoDte = XmlHandler.TryDeserializeFromString<DTE>(xmlDTE);
+            string firmadelDD = objetoDte.Documento.TED.FirmaDigital.Firma;
 
             string privateKey = CAFHandler.GetPrivateKey(pathFileCaf);
 
 
-            string firmaResultante = Timbre.Timbrar(envioBoleta.SetDTE.DTEs[0].Documento.TED.DatosBasicos.ToString(), privateKey);
+            string firmaResultante = Timbre.Timbrar(objetoDte.Documento.TED.DatosBasicos.ToString(), privateKey);
 
             MessageBox.Show((firmaResultante == firmadelDD).ToString());
         }

@@ -1411,19 +1411,15 @@ namespace SIMPLEAPI_Demo
             return "Error";
         }
 
-        public async Task<EstadoDTEResult> ConsultarEstadoDTEAsync(AmbienteEnum ambiente, string rutReceptor, TipoDTE.DTEType tipo, int folio, DateTime fechaEmision, int total, bool isBoletaCertificacion)
+        public async Task<EstadoDTEResult> ConsultarEstadoDTEAsync(AmbienteEnum ambiente, string rutReceptor, TipoDTE.DTEType tipo, int folio, DateTime fechaEmision, int total)
         {
-            EstadoDTEResult responseEstadoDTE = new EstadoDTEResult();
+            var responseEstadoDTE = await EstadoDTE.GetEstadoDTEAsync(new SimpleAPI.SII.GetEstadoEntity(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, rutReceptor, fechaEmision, (int)tipo, folio, total), configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
+            return responseEstadoDTE;
+        }
 
-            if (!isBoletaCertificacion && !(tipo == TipoDTE.DTEType.BoletaElectronica || tipo == TipoDTE.DTEType.BoletaElectronicaExenta))
-            {
-                responseEstadoDTE = await EstadoDTE.GetEstadoDTEAsync(new SimpleAPI.SII.GetEstadoEntity(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, rutReceptor, fechaEmision, (int)tipo, folio, total), configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
-            }
-            else
-            {
-                string retorno = await EstadoDTE.GetEstadoBoletaAsync(new SimpleAPI.SII.GetEstadoEntity(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, rutReceptor, fechaEmision, (int)tipo, folio, total), configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
-            }
-
+        public async Task<EstadoBoletaResult> ConsultarEstadoBoletaAsync(AmbienteEnum ambiente, string rutReceptor, TipoDTE.DTEType tipo, int folio, DateTime fechaEmision, int total)
+        {
+            var responseEstadoDTE = await EstadoDTE.GetEstadoBoletaAsync(new SimpleAPI.SII.GetEstadoEntity(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, rutReceptor, fechaEmision, (int)tipo, folio, total), configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
             return responseEstadoDTE;
         }
 
@@ -1435,9 +1431,9 @@ namespace SIMPLEAPI_Demo
 
         public async Task<EstadoEnvioBoletaResult> ConsultarEstadoEnvioBoletaAsync(AmbienteEnum ambiente, long trackId)
         {
-            string responseEstadoEnvio = await EstadoEnvio.GetEstadoEnvioBoletaAsync(new SimpleAPI.SII.GetEstadoEnvioEntity(configuracion.Empresa.RutEmpresa, trackId.ToString()), ambiente, ".\\out\\tkn.dat", configuracion.Certificado.Nombre);
-
-            return new EstadoEnvioBoletaResult() { Response = responseEstadoEnvio };
+            var responseEstadoEnvio = await EstadoEnvio.GetEstadoEnvioBoletaAsync(new SimpleAPI.SII.GetEstadoEnvioEntity(configuracion.Empresa.RutEmpresa, trackId.ToString()), ambiente, ".\\out\\tkn.dat", configuracion.Certificado.Nombre);
+            return responseEstadoEnvio;
+           // return new EstadoEnvioBoletaResult() { Response = responseEstadoEnvio };
         }
 
         public string GenerarRespuestaEnvio(List<DTE> dtes, string estadoDTE)

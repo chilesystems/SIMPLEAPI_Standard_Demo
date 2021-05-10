@@ -290,7 +290,11 @@ namespace SIMPLEAPI_Demo
                     xmlDtes.Add(xml);
                 }
                 var EnvioSII = handler.GenerarEnvioBoletaDTEToSII(dtes, xmlDtes);
-                var filePath = EnvioSII.Firmar(configuracion.Certificado.Nombre);
+
+                int min = dtes.Min(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
+                int max = dtes.Max(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
+
+                var filePath = EnvioSII.Firmar(configuracion.Certificado.Nombre, customName: $"EnvioBoleta_{DateTime.Now.ToShortDateString()}_{min}_{max}");
                 try
                 {
                     handler.Validate(filePath, Firma.TipoXML.EnvioBoleta, SimpleAPI.XML.Schemas.EnvioBoleta);

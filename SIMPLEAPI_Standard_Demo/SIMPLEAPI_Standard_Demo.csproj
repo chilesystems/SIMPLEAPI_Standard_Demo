@@ -55,10 +55,6 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\SimpleAPI-Standard\SimpleAPI\bin\Debug\netstandard2.0\SimpleAPI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -261,6 +257,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Imprimir.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimpleAPI-Standard\SimpleAPI\SimpleAPI.csproj">
+      <Project>{bb1957d6-4720-4a39-bb9d-35564cac5725}</Project>
+      <Name>SimpleAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -125,7 +125,11 @@ namespace SIMPLEAPI_Demo
                 var dte = XmlHandler.DeserializeFromString<DTE>(xml);
 
                 document = PrintableDocument.FromDTE(dte);
-               // pictureBoxTimbre.BackgroundImage = document.TimbreImage = dte.Documento.TimbrePDF417(out string outMessage);
+                using (var ms = new MemoryStream(dte.Documento.TimbrePDF417(out string outMessage)))
+                {
+                    document.TimbreImage = pictureBoxTimbre.BackgroundImage = Image.FromStream(ms);                    
+                }
+
                 BindData();
 
             }
