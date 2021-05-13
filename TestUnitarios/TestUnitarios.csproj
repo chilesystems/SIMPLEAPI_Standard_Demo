@@ -42,6 +42,13 @@
     <None Update="Files\ENVIO_DTE_REST.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Files\CertificadoDigital.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimpleAPI-Standard\SimpleAPI\SimpleAPI.csproj" />
   </ItemGroup>
 
 </Project>
