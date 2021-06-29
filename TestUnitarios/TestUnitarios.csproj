@@ -15,9 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="SimpleAPI">
-      <HintPath>..\..\SimpleAPI-Standard\SimpleAPI\bin\Debug\netstandard2.0\SimpleAPI.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\SimpleAPI-Standard\SimpleAPI\SimpleAPI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,7 @@
 ﻿using SimpleAPI.Enum;
+using SimpleAPI.SII;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace TestUnitarios
@@ -7,12 +9,12 @@ namespace TestUnitarios
     public class SII
     {
         Handler handler = new Handler();
-        private string pathCertificado = System.IO.Path.Combine("Files","CertificadoDigital.pfx");
-        private string pathEnvioDTE = System.IO.Path.Combine("Files","ENVIO_DTE_REST.xml");
+        private string pathCertificado = System.IO.Path.Combine("Files", "CertificadoDigital.pfx");
+        private string pathEnvioDTE = System.IO.Path.Combine("Files", "ENVIO_DTE_REST.xml");
         private string pathToken = System.IO.Path.Combine("Files", "tkn.dat");
 
         [Fact]
-        public async System.Threading.Tasks.Task ObtenerTokenAsync()
+        public async Task ObtenerTokenAsync()
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             string token = await SimpleAPI.WS.Autorizacion.Autenticar.GetTokenAsync(pathCertificado, Ambiente.AmbienteEnum.Produccion, pathToken, "Pollito702");
@@ -22,28 +24,28 @@ namespace TestUnitarios
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task ObtenerEstadoDTEAsync()
+        public async Task ObtenerEstadoDTEAsync()
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var ambiente = Ambiente.AmbienteEnum.Produccion;
-            var entity = new SimpleAPI.SII.GetEstadoEntity("17096073-4", "76269769-6", "3671414-K", new DateTime(2021, 5, 4), 33, 85, 75225);
+            var entity = new GetEstadoEntity("17096073-4", "76269769-6", "3671414-K", new DateTime(2021, 5, 4), 33, 85, 75225);
             var estadoDTE = await SimpleAPI.WS.Estado.EstadoDTE.GetEstadoDTEAsync(entity, pathCertificado, ambiente, pathToken, "Pollito702");
             Assert.True(estadoDTE.Ok);
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task ObtenerEstadoEnvioAsync()
+        public async Task ObtenerEstadoEnvioAsync()
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var ambiente = Ambiente.AmbienteEnum.Produccion;
-            var entity = new SimpleAPI.SII.GetEstadoEnvioEntity("76269769-6", "4942604664");
+            var entity = new GetEstadoEnvioEntity("76269769-6", "4942604664");
             var estadoDTE = await SimpleAPI.WS.Estado.EstadoEnvio.GetEstadoEnvioAsync(entity, ambiente, pathToken, pathCertificado, "Pollito702");
 
             Assert.True(estadoDTE.Ok);
         }
 
         [Fact]
-        public async System.Threading.Tasks.Task EnviarAsync()
+        public async Task EnviarAsync()
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var ambiente = Ambiente.AmbienteEnum.Certificacion;
@@ -52,5 +54,15 @@ namespace TestUnitarios
             Assert.True(envioDTE.Ok);
         }
 
+        [Fact]
+        public async Task EnviarAceptacion()
+        {
+            if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
+            var ambiente = Ambiente.AmbienteEnum.Produccion;
+            var entity = new AceptacionReclamoEntity("76269769-6", 33, 1, TipoAceptacion.ACD);
+            var aceptacion = await SimpleAPI.WS.AceptacionReclamo.AceptacionReclamo.NotificarAceptacionReclamoAsync(entity, pathCertificado, ambiente, pathToken, "Pollito702");
+
+            Assert.True(true);
+        }
     }
 }

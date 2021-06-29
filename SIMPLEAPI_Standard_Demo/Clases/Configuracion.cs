@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMPLEAPI_Demo.Clases
 {
@@ -13,7 +11,7 @@ namespace SIMPLEAPI_Demo.Clases
         public Contribuyente Empresa { get; set; }
         public CertificadoDigital Certificado { get; set; }
         public string APIKey { get; set; }
-        public List<ProductoSimulacion> ProductosSimulacion{ get; set; }
+        public List<ProductoSimulacion> ProductosSimulacion { get; set; }
 
         public void GenerarArchivo()
         {
@@ -22,7 +20,7 @@ namespace SIMPLEAPI_Demo.Clases
 
         public bool VerificarCarpetasIniciales()
         {
-            return Directory.Exists("out\\temp") && Directory.Exists("out\\caf") && Directory.Exists("XML"); 
+            return Directory.Exists("out\\temp") && Directory.Exists("out\\caf") && Directory.Exists("XML");
         }
 
         public bool LeerArchivo()
@@ -69,8 +67,8 @@ namespace SIMPLEAPI_Demo.Clases
                 Rut = "55555555-5"
             };
             APIKey = "API-KEY";
-            ProductosSimulacion = new List<ProductoSimulacion>() 
-            { 
+            ProductosSimulacion = new List<ProductoSimulacion>()
+            {
                 new ProductoSimulacion() { Nombre = "SERVICIO DE FACTURACION ELECT" },
                 new ProductoSimulacion() { Nombre = "ASESORIA COMPUTACIONAL"},
                 new ProductoSimulacion() { Nombre = "CAPACITACION AL PERSONAL"},

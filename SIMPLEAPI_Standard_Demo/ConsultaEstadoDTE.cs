@@ -1,13 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SimpleAPI.Enum;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static SimpleAPI.Enum.Ambiente;
 
@@ -37,7 +30,7 @@ namespace SIMPLEAPI_Demo
             {
                 var responseEstadoDTE = await handler.ConsultarEstadoBoletaAsync(radioProduccion.Checked ? AmbienteEnum.Produccion : AmbienteEnum.Certificacion, $"{textRUTReceptor.Text}-{textDVReceptor.Text}", tipoDTE, folio, dateFechaEmision.Value.Date, total);
                 textRespuesta.Text = JsonConvert.SerializeObject(responseEstadoDTE, Formatting.Indented);
-            }                
+            }
         }
 
         private void ConsultaEstadoDTE_Load(object sender, EventArgs e)

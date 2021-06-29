@@ -1,15 +1,15 @@
 ﻿using SimpleAPI.Enum;
-using SimpleAPI.Models.Envios;
 using SimpleAPI.Models.DTE;
+using SimpleAPI.Models.Envios;
 using SimpleAPI.Security;
 using SIMPLEAPI_Demo.Clases;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using static SimpleAPI.Enum.Ambiente;
-using System.Linq;
 
 namespace SIMPLEAPI_Demo
 {
@@ -35,7 +35,7 @@ namespace SIMPLEAPI_Demo
         {
             GenerarDocumentoElectronico formulario = new GenerarDocumentoElectronico();
             formulario.ShowDialog();
-      
+
         }
 
         private void botonGenerarEnvio_Click(object sender, EventArgs e)
@@ -85,7 +85,7 @@ namespace SIMPLEAPI_Demo
                 if (retorno.Item1 == 0) MessageBox.Show("Ocurrió un error: " + retorno.Item2);
                 else MessageBox.Show("Sobre enviado correctamente. TrackID: " + retorno.Item1.ToString());
             }
-                
+
         }
 
         #endregion
@@ -132,7 +132,7 @@ namespace SIMPLEAPI_Demo
             MessageBox.Show("Envío generado exitosamente en " + filePathEnvio);
         }
 
-        
+
 
         private async void botonEnviarSimulacionSII_Click(object sender, EventArgs e)
         {
@@ -141,11 +141,11 @@ namespace SIMPLEAPI_Demo
             if (result == DialogResult.OK)
             {
                 string pathFile = openFileDialog1.FileName;
-                var retorno = await handler.EnviarEnvioDTEToSIIAsync(pathFile,  radioProduccion.Checked ? AmbienteEnum.Produccion : AmbienteEnum.Certificacion);
+                var retorno = await handler.EnviarEnvioDTEToSIIAsync(pathFile, radioProduccion.Checked ? AmbienteEnum.Produccion : AmbienteEnum.Certificacion);
                 if (retorno.Item1 == 0) MessageBox.Show("Ocurrió un error: " + retorno.Item2);
                 else MessageBox.Show($"Sobre enviado correctamente. TrackId: {retorno.Item1}");
             }
-                
+
         }
 
         #endregion
@@ -190,7 +190,7 @@ namespace SIMPLEAPI_Demo
             {
                 string pathFile = openFileDialog1.FileName;
                 string xml = File.ReadAllText(pathFile, Encoding.GetEncoding("ISO-8859-1"));
-                
+
                 var dteBoleta = SimpleAPI.XML.XmlHandler.DeserializeFromString<DTE>(xml);
 
                 var dteNC = handler.GenerateDTE(TipoDTE.DTEType.NotaCreditoElectronica, 8);
@@ -215,7 +215,7 @@ namespace SIMPLEAPI_Demo
 
                 MessageBox.Show("Nota de crédito generada exitosamente en " + path);
             }
-               
+
         }
 
         private async void botonRebajaDocumento_Click(object sender, EventArgs e)
@@ -270,7 +270,7 @@ namespace SIMPLEAPI_Demo
 
                 MessageBox.Show("Nota de crédito generada exitosamente en " + path);
             }
-            
+
         }
 
         private void botonGenerarEnvioBoleta_Click(object sender, EventArgs e)
@@ -305,7 +305,7 @@ namespace SIMPLEAPI_Demo
                 }
                 MessageBox.Show("Envío generado exitosamente en " + filePath);
             }
-           
+
         }
         #endregion
 
@@ -322,9 +322,8 @@ namespace SIMPLEAPI_Demo
                  */
             int tipoDocumento = 33;
             int folio = 17158136;
-            string accion = "ACD";
             string rutProveedor = "88888888-8";
-            var respuesta = await handler.EnviarAceptacionReclamo(tipoDocumento, folio, accion, rutProveedor, radioCertificacion.Checked ? AmbienteEnum.Certificacion : AmbienteEnum.Produccion);
+            var respuesta = await handler.EnviarAceptacionReclamo(tipoDocumento, folio, TipoAceptacion.ACD, rutProveedor, radioCertificacion.Checked ? AmbienteEnum.Certificacion : AmbienteEnum.Produccion);
             MessageBox.Show(respuesta);
         }
         private void botonConsultarEstadoDTE_Click(object sender, EventArgs e)
@@ -359,10 +358,10 @@ namespace SIMPLEAPI_Demo
 
             string nAtencion = "1092644";
 
-            for (int i = 51; i<= 53; i++) //4 facturas
+            for (int i = 51; i <= 53; i++) //4 facturas
                 folios.Add(i);
             for (int i = 14; i <= 16; i++) // 3 notas de credito
-                folios.Add(i);            
+                folios.Add(i);
             folios.Add(6); //1 nota de debito           
 
             #region DTEs
@@ -390,7 +389,7 @@ namespace SIMPLEAPI_Demo
             var path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
-            
+
             /********************************/
 
             /********************************/
@@ -522,7 +521,7 @@ namespace SIMPLEAPI_Demo
             /********************************/
 
             /********************************/
-            casoPruebas = "CASO " + nAtencion + "-6"; 
+            casoPruebas = "CASO " + nAtencion + "-6";
             dte = handler.GenerateDTE(TipoDTE.DTEType.NotaCreditoElectronica, folios[5]);
             detalles = new List<ItemBoleta>();
             detalles.Add(new ItemBoleta()
@@ -665,7 +664,7 @@ namespace SIMPLEAPI_Demo
 
             MessageBox.Show("Proceso de set de pruebas terminado", "Al fin :)", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            
+
         }
 
         private async void botonFacturaCompra_Click(object sender, EventArgs e)
@@ -814,7 +813,7 @@ namespace SIMPLEAPI_Demo
             filePath = handler.ResponderDTE(0, envio.SetDTE.DTEs[0], "PRUEBA");
             MessageBox.Show("Aprobación comercial " + filePath);
 
-           
+
         }
 
         private void botonCesion_Click(object sender, EventArgs e)
@@ -830,7 +829,7 @@ namespace SIMPLEAPI_Demo
 
                 string pathFile = openFileDialog1.FileName;
                 string xml = File.ReadAllText(pathFile, Encoding.GetEncoding("ISO-8859-1"));
-                
+
 
                 /*Creo el objeto AEC*/
                 var AEC = new SimpleAPI.Models.Cesion.AEC();
@@ -864,7 +863,7 @@ namespace SIMPLEAPI_Demo
                 {
                     RUT = dte.Documento.Encabezado.Emisor.Rut,
                     RazonSocial = dte.Documento.Encabezado.Emisor.RazonSocial,
-                    Direccion = dte.Documento.Encabezado.Emisor.DireccionOrigen +", " + dte.Documento.Encabezado.Emisor.ComunaOrigen,
+                    Direccion = dte.Documento.Encabezado.Emisor.DireccionOrigen + ", " + dte.Documento.Encabezado.Emisor.ComunaOrigen,
                     eMail = dte.Documento.Encabezado.Emisor.CorreoElectronico,
                     RUTsAutorizados = new List<SimpleAPI.Models.Cesion.RUTAutorizado>()
                     {
@@ -881,9 +880,9 @@ namespace SIMPLEAPI_Demo
                     cesionario {2}, RUT {3}, el o los documentos donde constan los recibos 
                     de las mercaderías entregadas o servicios prestados, entregados por parte 
                     del deudor de la factura {4}, RUT {5}, de acuerdo a lo establecido en la 
-                    Ley N° 19.983", 
-                 cedente.RazonSocial, 
-                 cedente.RUT, 
+                    Ley N° 19.983",
+                 cedente.RazonSocial,
+                 cedente.RUT,
                  cesionario.RazonSocial,
                  cesionario.RUT,
                  dte.Documento.Encabezado.Receptor.RazonSocial,
@@ -1069,7 +1068,7 @@ namespace SIMPLEAPI_Demo
             #region NOTA DEBITO EXPORTACION
             var dteND = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.NotaDebitoExportacionElectronica, folioND);
             dteND.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = dteNC.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion;
-            dteND.Exportaciones.Encabezado.Transporte.Aduana = dteNC.Exportaciones.Encabezado.Transporte.Aduana;     
+            dteND.Exportaciones.Encabezado.Transporte.Aduana = dteNC.Exportaciones.Encabezado.Transporte.Aduana;
 
             dteND.Exportaciones.Detalles = new List<DetalleExportacion>();
             var detalleND = detalleNC;
@@ -1185,7 +1184,7 @@ namespace SIMPLEAPI_Demo
                 CantidadBultos = 29,
                 CodigoTipoBulto = CodigosAduana.TipoBultoEnum.CONTENEDOR_REFRIGERADO,
                 Marcas = "MARCA CHANCHO",
-                IdContainer = "erer787df1",   
+                IdContainer = "erer787df1",
                 Sello = "SelloTest2"
             });
             dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete = 215.95;
@@ -1226,7 +1225,7 @@ namespace SIMPLEAPI_Demo
             comisionExtranjero.Descripcion = "COMISIONES EN EL EXTRANJERO";
             comisionExtranjero.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
             comisionExtranjero.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            comisionExtranjero.Valor = 125.21; 
+            comisionExtranjero.Valor = 125.21;
             dte.Exportaciones.DescuentosRecargos.Add(comisionExtranjero);
 
             var descuentoFlete = new DescuentosRecargos();
@@ -1287,7 +1286,8 @@ namespace SIMPLEAPI_Demo
             folioFactura++;
             #region FACTURA EXPORTACION 3
             dte = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.FacturaExportacionElectronica, folioFactura);
-            dte.Exportaciones.Encabezado.Receptor.Extranjero = new Extranjero() {
+            dte.Exportaciones.Encabezado.Receptor.Extranjero = new Extranjero()
+            {
                 Nacionalidad = CodigosAduana.Paises.ARGENTINA
             };
             dte.Exportaciones.Encabezado.IdentificacionDTE.IndicadorServicio = IndicadorServicio.IndicadorServicioEnum.ServiciosHoteleria2;
@@ -1301,7 +1301,7 @@ namespace SIMPLEAPI_Demo
             detalle.Nombre = "ALOJAMIENTO HABITACIONES";
             detalle.Cantidad = 1;
             detalle.Precio = 57;
-            detalle.MontoItem = 57;          
+            detalle.MontoItem = 57;
             dte.Exportaciones.Detalles.Add(detalle);
 
             dte.Exportaciones.Referencias = new List<Referencia>();
@@ -1411,7 +1411,7 @@ namespace SIMPLEAPI_Demo
                 var retorno = await handler.EnviarEnvioDTEToSIIAsync(pathFile, radioProduccion.Checked ? AmbienteEnum.Produccion : AmbienteEnum.Certificacion, true);
                 if (retorno.Item1 == 0) MessageBox.Show("Ocurrió un error: " + retorno.Item2);
                 else MessageBox.Show($"Sobre enviado correctamente. TrackID: {retorno.Item1}");
-            }          
+            }
         }
 
         private void botonEnviarAlSIIBoletas_Certificacion_Click(object sender, EventArgs e)

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMPLEAPI_Standard_Demo", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestUnitarios", "TestUnitarios\TestUnitarios.csproj", "{DDE2C1B0-5D11-4179-87B0-80E9807D6EE4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleAPI", "..\SimpleAPI-Standard\SimpleAPI\SimpleAPI.csproj", "{BB1957D6-4720-4A39-BB9D-35564CAC5725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleAPI", "..\SimpleAPI-Standard\SimpleAPI\SimpleAPI.csproj", "{5BB866DD-45A8-4617-830C-6CAC54FA5FD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{DDE2C1B0-5D11-4179-87B0-80E9807D6EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDE2C1B0-5D11-4179-87B0-80E9807D6EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDE2C1B0-5D11-4179-87B0-80E9807D6EE4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB1957D6-4720-4A39-BB9D-35564CAC5725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB1957D6-4720-4A39-BB9D-35564CAC5725}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB1957D6-4720-4A39-BB9D-35564CAC5725}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB1957D6-4720-4A39-BB9D-35564CAC5725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BB866DD-45A8-4617-830C-6CAC54FA5FD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB866DD-45A8-4617-830C-6CAC54FA5FD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB866DD-45A8-4617-830C-6CAC54FA5FD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB866DD-45A8-4617-830C-6CAC54FA5FD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

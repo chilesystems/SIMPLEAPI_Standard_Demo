@@ -1,14 +1,11 @@
 ﻿using SimpleAPI.Enum;
-using SimpleAPI.Models;
 using SimpleAPI.Models.DTE;
 using SIMPLEAPI_Demo.Impresion.Core.Helpers;
 using SIMPLEAPI_Demo.Impresion.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMPLEAPI_Demo.Impresion.Core
 {

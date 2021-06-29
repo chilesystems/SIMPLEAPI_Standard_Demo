@@ -1,11 +1,9 @@
 ﻿using SimpleAPI.Enum;
-using SimpleAPI.Models.Envios;
 using SimpleAPI.Models.DTE;
+using SimpleAPI.Models.Envios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestUnitarios
 {
@@ -87,7 +85,7 @@ namespace TestUnitarios
             detalle.MontoItem = 2040;
             dte.Documento.Detalles.Add(detalle);
 
-            detalle = new SimpleAPI.Models.DTE.Detalle();
+            detalle = new Detalle();
             detalle.NumeroLinea = 2;
             detalle.Nombre = "DESARROLLO DE ETL";
             detalle.Cantidad = 20;
@@ -194,7 +192,7 @@ namespace TestUnitarios
             }
 
 
-            EnvioSII.SetDTE.Caratula = new SimpleAPI.Models.Envios.Caratula();
+            EnvioSII.SetDTE.Caratula = new Caratula();
             EnvioSII.SetDTE.Caratula.FechaEnvio = DateTime.Now;
             /*Fecha de Resolución y Número de Resolución se averiguan en el sitio del SII según ambiente de producción o certificación*/
             EnvioSII.SetDTE.Caratula.FechaResolucion = empresa.FechaResolucion;
