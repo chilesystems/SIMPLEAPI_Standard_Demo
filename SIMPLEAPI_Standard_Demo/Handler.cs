@@ -444,7 +444,7 @@ namespace SIMPLEAPI_Demo
             return false;
         }
 
-        private string EnsureExists(int tipoDTE, int folio, string pathCaf)
+        private string EnsureExists(int tipoDTE, long folio, string pathCaf)
         {
             var cafFile = string.Empty;
             foreach (var file in System.IO.Directory.GetFiles(pathCaf))
@@ -455,7 +455,7 @@ namespace SIMPLEAPI_Demo
             return cafFile;
         }
 
-        private static bool ParseName(string name, int tipoDTE, int folio)
+        private static bool ParseName(string name, int tipoDTE, long folio)
         {
             try
             {
@@ -558,7 +558,7 @@ namespace SIMPLEAPI_Demo
         }
 
         public async Task<(long, string)> EnviarEnvioDTEToSIIAsync(string filePathEnvio, AmbienteEnum ambiente, bool nuevaBoleta = false)
-        {
+        { 
             try
             {
                 EnvioDTEResult responseEnvio = new EnvioDTEResult();
