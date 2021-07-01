@@ -1,15 +1,9 @@
-﻿using SimpleAPI.Models.Envios;
-using SimpleAPI.Models.DTE;
+﻿using SimpleAPI.Models.DTE;
+using SimpleAPI.Models.Envios;
 using SimpleAPI.Security;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SIMPLEAPI_Demo
@@ -29,7 +23,7 @@ namespace SIMPLEAPI_Demo
                 try
                 {
                     string xml = File.ReadAllText(openFileDialog1.FileName, Encoding.GetEncoding("ISO-8859-1"));
-                    
+
                     string tipoSchema = string.Empty;
                     Firma.TipoXML tipoFirma = Firma.TipoXML.NotSet;
                     string tipo = comboTipo.SelectedItem.ToString();
@@ -48,7 +42,7 @@ namespace SIMPLEAPI_Demo
                         tipoFirma = Firma.TipoXML.Envio;
 
                         var envio = SimpleAPI.XML.XmlHandler.TryDeserializeFromString<EnvioDTE>(xml);
-                       // textDocumento.Text = "DOCUMENTOS: " + String.Join(",", envio.SetDTE.DTEs);
+                        // textDocumento.Text = "DOCUMENTOS: " + String.Join(",", envio.SetDTE.DTEs);
 
                     }
                     else if (tipo == "ENVIOBOLETA")
@@ -96,13 +90,13 @@ namespace SIMPLEAPI_Demo
                 {
                     textResultado.Text = "ERROR: " + ex.ToString();
                 }
-                
+
             }
         }
 
         private void Validador_Load(object sender, EventArgs e)
         {
-            comboTipo.SelectedIndex = 0;  
+            comboTipo.SelectedIndex = 0;
         }
 
         private void ComboTipo_SelectedIndexChanged(object sender, EventArgs e)

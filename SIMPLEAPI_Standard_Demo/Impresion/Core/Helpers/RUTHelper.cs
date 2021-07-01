@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SIMPLEAPI_Demo.Impresion.Core.Helpers
+﻿namespace SIMPLEAPI_Demo.Impresion.Core.Helpers
 {
     public static class RUTHelper
     {

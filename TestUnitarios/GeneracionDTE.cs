@@ -37,7 +37,7 @@ namespace TestUnitarios
             dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
             var resultado = await dte.Firmar(pathCertificado, "1523-Z930-6403-4900-6397", "", $"DTE_{DateTime.Now.Ticks.ToString()}", "Pollito702");
             System.IO.File.Delete(resultado.Item1);
-            Assert.Equal(string.Empty, resultado.Item2);          
+            Assert.Equal(string.Empty, resultado.Item2);
         }
 
         [Fact]

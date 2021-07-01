@@ -1,22 +1,20 @@
 ﻿using SimpleAPI.Enum;
+using SimpleAPI.Models.DTE;
 using SimpleAPI.Models.Envios;
 using SimpleAPI.Models.LCV;
-using SimpleAPI.Models.DTE;
 using SimpleAPI.Models.RCOF;
 using SimpleAPI.Models.ReciboMercaderia;
 using SimpleAPI.Models.RespuestaEnvio;
+using SimpleAPI.WS.Envio;
+using SimpleAPI.WS.Estado;
 using SIMPLEAPI_Demo.Clases;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static SimpleAPI.Enum.Ambiente;
-using SimpleAPI.WS.Estado;
-using SimpleAPI.WS.Envio;
 
 namespace SIMPLEAPI_Demo
 {
@@ -38,7 +36,7 @@ namespace SIMPLEAPI_Demo
             var dte = new DTE();
             //
             // DOCUMENTO - ENCABEZADO - CAMPO OBLIGATORIO               
-            dte.Documento.Id =  "DTE_" + DateTime.Now.Ticks.ToString();
+            dte.Documento.Id = "DTE_" + DateTime.Now.Ticks.ToString();
 
             // DOCUMENTO - ENCABEZADO - IDENTIFICADOR DEL DOCUMENTO - CAMPOS OBLIGATORIOS
             dte.Documento.Encabezado.IdentificacionDTE.TipoDTE = tipoDTE;
@@ -91,7 +89,7 @@ namespace SIMPLEAPI_Demo
             else
             {
                 dte.Documento.Encabezado.Emisor.ActividadEconomica = configuracion.Empresa.CodigosActividades.Select(x => x.Codigo).ToList();
-                dte.Documento.Encabezado.Emisor.RazonSocial = configuracion.Empresa.RazonSocial; 
+                dte.Documento.Encabezado.Emisor.RazonSocial = configuracion.Empresa.RazonSocial;
                 dte.Documento.Encabezado.Emisor.Giro = configuracion.Empresa.Giro;
             }
 
@@ -127,7 +125,7 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Encabezado.IdentificacionDTE.TipoDTE = tipoDTE;
             dte.Exportaciones.Encabezado.IdentificacionDTE.FechaEmision = DateTime.Now;
             dte.Exportaciones.Encabezado.IdentificacionDTE.Folio = folio;
-            
+
             dte.Exportaciones.Encabezado.Emisor.Rut = configuracion.Empresa.RutEmpresa;
             dte.Exportaciones.Encabezado.Emisor.RazonSocial = configuracion.Empresa.RazonSocial;
             dte.Exportaciones.Encabezado.Emisor.Giro = configuracion.Empresa.Giro;
@@ -145,10 +143,10 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Encabezado.Receptor.Giro = "Giro de cliente";
 
             dte.Exportaciones.Encabezado.Transporte = new Transporte();
-            dte.Exportaciones.Encabezado.Transporte.Aduana = new Aduana();           
+            dte.Exportaciones.Encabezado.Transporte.Aduana = new Aduana();
 
             dte.Exportaciones.Referencias = new List<Referencia>();
-           
+
 
             return dte;
         }
@@ -161,14 +159,15 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Encabezado.Totales.MontoExento = total;
             dte.Exportaciones.Encabezado.Totales.MontoTotal = total;
 
-            try {
+            try
+            {
                 int totalOtraMoneda = (int)Math.Round((dte.Exportaciones.Detalles.Sum(x => x.MontoItem) + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro + adicional) * dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio, 0);
                 //int totalOtraMoneda = (int)Math.Round(dte.Exportaciones.Detalles.Sum(x => x.MontoItem) * dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio, 0);
                 dte.Exportaciones.Encabezado.OtraMoneda.MontoExento = totalOtraMoneda;
                 dte.Exportaciones.Encabezado.OtraMoneda.MontoTotal = totalOtraMoneda;
             }
             catch { }
-           
+
         }
 
         public void GenerateDetails(DTE dte)
@@ -251,7 +250,7 @@ namespace SIMPLEAPI_Demo
                     detalle.CodigoImpuestoAdicional = new List<TipoImpuesto.TipoImpuestoEnum>();
                     detalle.CodigoImpuestoAdicional.Add(det.TipoImpuesto);
                 }
-                
+
                 dte.Documento.Detalles.Add(detalle);
                 contador++;
             }
@@ -288,11 +287,11 @@ namespace SIMPLEAPI_Demo
                     var iva = (int)Math.Round(neto * 0.19, 0);
                     int retenido = 0;
 
-                    if (dte.Documento.Detalles.Any(x => x.CodigoImpuestoAdicional !=null))
+                    if (dte.Documento.Detalles.Any(x => x.CodigoImpuestoAdicional != null))
                     {
                         retenido = (int)Math.Round(
                             dte.Documento.Detalles
-                            .Where(x=>x.CodigoImpuestoAdicional.First() == TipoImpuesto.TipoImpuestoEnum.IVARetenidoTotal)
+                            .Where(x => x.CodigoImpuestoAdicional.First() == TipoImpuesto.TipoImpuestoEnum.IVARetenidoTotal)
                             .Sum(x => x.MontoItem) * 0.19, 0);
 
                         if (retenido != 0)
@@ -304,7 +303,7 @@ namespace SIMPLEAPI_Demo
                                 TasaImpuesto = 19,
                                 TipoImpuesto = TipoImpuesto.TipoImpuestoEnum.IVARetenidoTotal
                             });
-                        }                       
+                        }
                     }
 
                     dte.Documento.Encabezado.Totales.MontoNeto = neto;
@@ -314,7 +313,7 @@ namespace SIMPLEAPI_Demo
                 }
                 else
                 {
-                    
+
 
                     /*En las boletas, sólo es necesario informar el monto total*/
                     if (dte.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
@@ -338,7 +337,7 @@ namespace SIMPLEAPI_Demo
                         var total = dte.Documento.Detalles.Sum(x => x.MontoItem);
                         dte.Documento.Encabezado.Totales.MontoExento = dte.Documento.Encabezado.Totales.MontoTotal = total;
                     }
-                   
+
                 }
             }
 
@@ -380,7 +379,7 @@ namespace SIMPLEAPI_Demo
                     });
                 }
             }
-            else 
+            else
             {
                 dte.Documento.Referencias.Add(new Referencia()
                 {
@@ -391,7 +390,7 @@ namespace SIMPLEAPI_Demo
                     RazonReferencia = operacionReferencia == TipoReferencia.TipoReferenciaEnum.AnulaDocumentoReferencia ? "ANULA" : "CORRIGE" + " DOCUMENTO N° " + folioReferencia.ToString(),
                     TipoDocumento = tipoDocumentoReferencia
                 });
-            }            
+            }
         }
 
         public async Task<string> TimbrarYFirmarXMLDTE(DTE dte, string pathResult, string pathCaf)
@@ -400,8 +399,8 @@ namespace SIMPLEAPI_Demo
              * cuando antes debías ir con las facturas en papel para que te las timbraran */
             string messageOut = string.Empty;
             dte.Documento.Timbrar(
-                EnsureExists((int)dte.Documento.Encabezado.IdentificacionDTE.TipoDTE, dte.Documento.Encabezado.IdentificacionDTE.Folio, pathCaf),  
-                out  messageOut);
+                EnsureExists((int)dte.Documento.Encabezado.IdentificacionDTE.TipoDTE, dte.Documento.Encabezado.IdentificacionDTE.Folio, pathCaf),
+                out messageOut);
 
             if (!string.IsNullOrEmpty(messageOut)) return messageOut;
             /*El documento timbrado se guarda en la variable pathResult*/
@@ -409,13 +408,13 @@ namespace SIMPLEAPI_Demo
             /*Finalmente, el documento timbrado debe firmarse con el certificado digital*/
             /*Se debe entregar en el argumento del método Firmar, el "FriendlyName" o Nombre descriptivo del certificado*/
             /*Retorna el filePath donde estará el archivo XML timbrado y firmado, listo para ser enviado al SII*/
-            var resultado =  await dte.Firmar(configuracion.Certificado.Nombre, configuracion.APIKey, "out\\temp\\");
+            var resultado = await dte.Firmar(configuracion.Certificado.Nombre, configuracion.APIKey, "out\\temp\\");
             return resultado.Item1;
         }
 
         public string TimbrarYFirmarXMLDTEExportacion(DTE dte, string pathResult, string pathCaf)
         {
-            
+
             /*En primer lugar, el documento debe timbrarse con el CAF que descargas desde el SII, es simular
              * cuando antes debías ir con las facturas en papel para que te las timbraran */
             string messageOut = string.Empty;
@@ -439,7 +438,7 @@ namespace SIMPLEAPI_Demo
                     return true;
                 else
                     MessageBox.Show("Error al validar firma electrónica: " + messageResult + "", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        
+
             MessageBox.Show("Error: " + messageResult + ". Verifique que contiene la carpeta XML con los XSD para validación", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
@@ -499,8 +498,8 @@ namespace SIMPLEAPI_Demo
             EnvioSII.SetDTE.Caratula.SubTotalesDTE = new List<SubTotalesDTE>();
 
             /*En la carátula del envío, se debe indicar cuantos documentos de cada tipo se están enviando*/
-            
-            if (EnvioSII.SetDTE.DTEs.Any(x=> !string.IsNullOrEmpty(x.Documento.Id)))
+
+            if (EnvioSII.SetDTE.DTEs.Any(x => !string.IsNullOrEmpty(x.Documento.Id)))
             {
                 var tipos = EnvioSII.SetDTE.DTEs.GroupBy(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE);
                 foreach (var a in tipos)
@@ -589,7 +588,7 @@ namespace SIMPLEAPI_Demo
             }
         }
 
-        
+
         #endregion
 
 
@@ -696,7 +695,7 @@ namespace SIMPLEAPI_Demo
             /*datos de boletas electrónicas exentas*/
             if (dtes.Any(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronicaExenta))
             {
-                totalExento = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronicaExenta).Sum(x => x.Documento.Encabezado.Totales.MontoExento);                
+                totalExento = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronicaExenta).Sum(x => x.Documento.Encabezado.Totales.MontoExento);
                 resultRangos = new List<RangoUtilizados>();
                 lst = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronicaExenta).Select(x => x.Documento.Encabezado.IdentificacionDTE.Folio).ToList();
                 minBoundaries = lst.Where(i => !lst.Contains(i - 1)).OrderBy(x => x).ToList();
@@ -815,7 +814,7 @@ namespace SIMPLEAPI_Demo
                 TipoEnvio = TipoEnvioLibro.TipoEnvioLibroEnum.Total,
                 FolioNotificacion = 100,
                 //Para cuando es SET de pruebas, siempre es 1,,                
-               
+
             };
 
             libro.EnvioLibro.Caratula.TipoOperacion = TipoOperacionLibro.TipoOperacionLibroEnum.Venta;
@@ -981,7 +980,7 @@ namespace SIMPLEAPI_Demo
 
             int neto = 60906;
             int exento = 0;
-            int iva = (int)Math.Round(neto * 0.19, 0);           
+            int iva = (int)Math.Round(neto * 0.19, 0);
             int total = neto + iva + exento;
             libro.EnvioLibro.Detalles.Add(new SimpleAPI.Models.LCV.Detalle()
             {
@@ -1140,7 +1139,7 @@ namespace SIMPLEAPI_Demo
                 TipoDocumento = TipoDTE.TipoDocumentoLibro.FacturaManual,
                 CantidadDocumentos = manuales.Count(),
                 CantidadDocumentosAnulados = 0,
-                TotalMontoExento = manuales.Sum(x=>x.MontoExento),
+                TotalMontoExento = manuales.Sum(x => x.MontoExento),
                 TotalMontoNeto = manuales.Sum(x => x.MontoNeto),
                 TotalMontoIva = manuales.Sum(x => x.MontoIva),
                 TotalIVAUsoComun = manuales.Sum(x => x.IVAUsoComun),
@@ -1156,7 +1155,7 @@ namespace SIMPLEAPI_Demo
                 TipoDocumento = TipoDTE.TipoDocumentoLibro.FacturaElectronica,
                 CantidadDocumentos = electronicas.Count(),
                 CantidadDocumentosAnulados = 0,
-                TotalMontoExento = electronicas.Sum(x=>x.MontoExento),
+                TotalMontoExento = electronicas.Sum(x => x.MontoExento),
                 TotalMontoNeto = electronicas.Sum(x => x.MontoNeto),
                 TotalMontoIva = electronicas.Sum(x => x.MontoIva),
                 TotalIVAUsoComun = electronicas.Sum(x => x.IVAUsoComun),
@@ -1207,7 +1206,7 @@ namespace SIMPLEAPI_Demo
             /**************************************************/
 
             /**************************************************/
-           
+
             return libro;
         }
 
@@ -1385,17 +1384,17 @@ namespace SIMPLEAPI_Demo
                     dte.Documento.Detalles.Add(detalle);
                 }
             }
-            
-            
+
+
             calculosTotales(dte);
             return dte;
         }
 
-        public async Task<string> EnviarAceptacionReclamo(int tipoDocumento, int folio, string accion, string rutEmpresa, AmbienteEnum ambiente, string passwordCertificado = "")
+        public async Task<string> EnviarAceptacionReclamo(int tipoDocumento, int folio, TipoAceptacion accion, string rutEmpresa, AmbienteEnum ambiente, string passwordCertificado = "")
         {
             try
             {
-                var responseEnvio = await SimpleAPI.WS.AceptacionReclamo.AceptacionReclamo.NotificarAceptacionReclamoAsync(new SimpleAPI.SII.AceptacionReclamoEntity(rutEmpresa, tipoDocumento, folio)
+                var responseEnvio = await SimpleAPI.WS.AceptacionReclamo.AceptacionReclamo.NotificarAceptacionReclamoAsync(new SimpleAPI.SII.AceptacionReclamoEntity(rutEmpresa, tipoDocumento, folio, accion)
                 {
                     Accion = accion
                 }, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat", passwordCertificado);
@@ -1433,7 +1432,7 @@ namespace SIMPLEAPI_Demo
         {
             var responseEstadoEnvio = await EstadoEnvio.GetEstadoEnvioBoletaAsync(new SimpleAPI.SII.GetEstadoEnvioEntity(configuracion.Empresa.RutEmpresa, trackId.ToString()), ambiente, ".\\out\\tkn.dat", configuracion.Certificado.Nombre);
             return responseEstadoEnvio;
-           // return new EstadoEnvioBoletaResult() { Response = responseEstadoEnvio };
+            // return new EstadoEnvioBoletaResult() { Response = responseEstadoEnvio };
         }
 
         public string GenerarRespuestaEnvio(List<DTE> dtes, string estadoDTE)
@@ -1603,7 +1602,7 @@ namespace SIMPLEAPI_Demo
                 return resultFilePath;
             }
             catch (Exception ex)
-            {                
+            {
                 return ex.Message;
             }
         }

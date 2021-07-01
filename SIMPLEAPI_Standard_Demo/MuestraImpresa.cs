@@ -1,18 +1,14 @@
-﻿using SimpleAPI.Models;
-using SimpleAPI.Models.DTE;
+﻿using SimpleAPI.Models.DTE;
 using SimpleAPI.XML;
 using SIMPLEAPI_Demo.Impresion.Core;
 using SIMPLEAPI_Demo.Impresion.Core.Helpers;
 using SIMPLEAPI_Demo.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SIMPLEAPI_Demo
@@ -127,7 +123,7 @@ namespace SIMPLEAPI_Demo
                 document = PrintableDocument.FromDTE(dte);
                 using (var ms = new MemoryStream(dte.Documento.TimbrePDF417(out string outMessage)))
                 {
-                    document.TimbreImage = pictureBoxTimbre.BackgroundImage = Image.FromStream(ms);                    
+                    document.TimbreImage = pictureBoxTimbre.BackgroundImage = Image.FromStream(ms);
                 }
 
                 BindData();

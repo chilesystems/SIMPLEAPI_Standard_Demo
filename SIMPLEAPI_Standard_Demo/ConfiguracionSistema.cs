@@ -1,13 +1,6 @@
 ﻿using SIMPLEAPI_Demo.Clases;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SIMPLEAPI_Demo
@@ -23,7 +16,7 @@ namespace SIMPLEAPI_Demo
 
         private void Configuracion_Load(object sender, EventArgs e)
         {
-            gridResultados.AutoGenerateColumns = gridProductos.AutoGenerateColumns = false;             
+            gridResultados.AutoGenerateColumns = gridProductos.AutoGenerateColumns = false;
 
             try
             {

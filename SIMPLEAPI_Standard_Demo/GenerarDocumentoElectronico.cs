@@ -3,12 +3,8 @@ using SimpleAPI.Security;
 using SIMPLEAPI_Demo.Clases;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SIMPLEAPI_Demo
@@ -28,7 +24,7 @@ namespace SIMPLEAPI_Demo
         {
             gridResultados.AutoGenerateColumns = false;
             comboTipo.SelectedIndex = 0;
-            
+
             handler.configuracion = new Configuracion();
             handler.configuracion.LeerArchivo();
 
@@ -80,14 +76,14 @@ namespace SIMPLEAPI_Demo
         {
             var tipoDte = comboTipo.SelectedIndex == 0 ? TipoDTE.DTEType.BoletaElectronica : TipoDTE.DTEType.FacturaElectronica;
 
-            var emisor = new SimpleAPI.Models.DTE.Emisor() 
+            var emisor = new SimpleAPI.Models.DTE.Emisor()
             {
                 Rut = textRUTEmisor.Text,
                 DireccionOrigen = textDireccionEmisor.Text,
                 ComunaOrigen = textComunaEmisor.Text
             };
 
-            var receptor = new SimpleAPI.Models.DTE.Receptor() 
+            var receptor = new SimpleAPI.Models.DTE.Receptor()
             {
                 Rut = textRUTReceptor.Text,
                 RazonSocial = textRazonSocialReceptor.Text,
