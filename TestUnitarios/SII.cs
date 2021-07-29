@@ -9,7 +9,7 @@ namespace TestUnitarios
     public class SII
     {
         Handler handler = new Handler();
-        private string pathCertificado = System.IO.Path.Combine("Files", "CertificadoDigital.pfx");
+        private string pathCertificado = System.IO.Path.Combine("Files", "CertificadoGonzalo2021.pfx");
         private string pathEnvioDTE = System.IO.Path.Combine("Files", "ENVIO_DTE_REST.xml");
         private string pathToken = System.IO.Path.Combine("Files", "tkn.dat");
 
@@ -59,7 +59,7 @@ namespace TestUnitarios
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var ambiente = Ambiente.AmbienteEnum.Produccion;
-            var entity = new AceptacionReclamoEntity("76269769-6", 33, 1, TipoAceptacion.ACD);
+            var entity = new AceptacionReclamoEntity("90635000-9", 33, 46714594, TipoAceptacion.ACD);
             var aceptacion = await SimpleAPI.WS.AceptacionReclamo.AceptacionReclamo.NotificarAceptacionReclamoAsync(entity, pathCertificado, ambiente, pathToken, "Pollito702");
 
             Assert.True(true);

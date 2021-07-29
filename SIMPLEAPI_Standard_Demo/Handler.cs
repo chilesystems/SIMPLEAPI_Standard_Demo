@@ -205,7 +205,7 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Detalles = new List<DetalleExportacion>();
             var detalle = new DetalleExportacion();
             detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
             detalle.Nombre = "CHATARRA DE ALUMINIO";
             detalle.Cantidad = 148;
             detalle.UnidadMedida = "U";
@@ -227,7 +227,7 @@ namespace SIMPLEAPI_Demo
                 var detalle = new SimpleAPI.Models.DTE.Detalle();
                 detalle.NumeroLinea = contador;
                 /*IndicadorExento = Sólo aplica si el producto es exento de IVA*/
-                detalle.IndicadorExento = det.Afecto ? IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NotSet : IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+                detalle.IndicadorExento = det.Afecto ? IndicadorFacturacionExencionEnum.NotSet : IndicadorFacturacionExencionEnum.NoAfectoOExento;
 
                 detalle.Nombre = det.Nombre;
                 detalle.Cantidad = (double)det.Cantidad;
@@ -267,11 +267,11 @@ namespace SIMPLEAPI_Demo
                 {
                     dte.Documento.Encabezado.Totales.TasaIVA = Convert.ToDouble(19);
                     var neto = dte.Documento.Detalles
-                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NotSet)
+                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NotSet)
                         .Sum(x => x.MontoItem);
 
                     var exento = dte.Documento.Detalles
-                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento)
+                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NoAfectoOExento)
                         .Sum(x => x.MontoItem);
 
                     var descuentos = dte.Documento.DescuentosRecargos?
@@ -319,11 +319,11 @@ namespace SIMPLEAPI_Demo
                     if (dte.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
                     {
                         var totalBrutoAfecto = dte.Documento.Detalles
-                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NotSet)
+                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NotSet)
                         .Sum(x => x.MontoItem);
 
                         var totalExento = dte.Documento.Detalles
-                            .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento)
+                            .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NoAfectoOExento)
                             .Sum(x => x.MontoItem);
 
                         var neto = totalBrutoAfecto / 1.19;
@@ -563,7 +563,7 @@ namespace SIMPLEAPI_Demo
                 EnvioDTEResult responseEnvio = new EnvioDTEResult();
 
                 if (nuevaBoleta) responseEnvio = await SimpleAPI.WS.Envio.EnvioBoleta.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat", configuracion.APIKey);
-                else responseEnvio = await SimpleAPI.WS.Envio.EnvioDTE.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat", configuracion.APIKey, isLibro: true);
+                else responseEnvio = await SimpleAPI.WS.Envio.EnvioDTE.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat", configuracion.APIKey);
 
                 if (responseEnvio != null && responseEnvio.TrackId > 0)
                 {
@@ -654,12 +654,12 @@ namespace SIMPLEAPI_Demo
              */
             int totalBrutoAfecto = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
                         .Sum(x => x.Documento.Detalles
-                        .Where(y => y.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NotSet)
+                        .Where(y => y.IndicadorExento == IndicadorFacturacionExencionEnum.NotSet)
                         .Sum(y => y.MontoItem));
 
             int totalExento = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
                     .Sum(x => x.Documento.Detalles
-                    .Where(y => y.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento)
+                    .Where(y => y.IndicadorExento == IndicadorFacturacionExencionEnum.NoAfectoOExento)
                     .Sum(y => y.MontoItem));
 
             int totalNeto = (int)Math.Round(totalBrutoAfecto / 1.19, 0, MidpointRounding.AwayFromZero);
@@ -668,7 +668,7 @@ namespace SIMPLEAPI_Demo
 
             /*Se calculan todos los rangos según el array de DTEs*/
             var resultRangos = new List<RangoUtilizados>();
-            List<int> lst = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica).Select(x => x.Documento.Encabezado.IdentificacionDTE.Folio).ToList();
+            List<long> lst = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica).Select(x => x.Documento.Encabezado.IdentificacionDTE.Folio).ToList();
             var minBoundaries = lst.Where(i => !lst.Contains(i - 1)).OrderBy(x => x).ToList();
             var maxBoundaries = lst.Where(i => !lst.Contains(i + 1)).OrderBy(x => x).ToList();
             for (int i = 0; i < maxBoundaries.Count; i++)

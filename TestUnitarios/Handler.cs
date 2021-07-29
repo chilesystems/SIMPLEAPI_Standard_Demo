@@ -105,11 +105,11 @@ namespace TestUnitarios
             {
                 dte.Documento.Encabezado.Totales.TasaIVA = Convert.ToDouble(19);
                 var neto = dte.Documento.Detalles
-                    .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NotSet)
+                    .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NotSet)
                     .Sum(x => x.MontoItem);
 
                 var exento = dte.Documento.Detalles
-                    .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento)
+                    .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NoAfectoOExento)
                     .Sum(x => x.MontoItem);
 
                 var descuentos = dte.Documento.DescuentosRecargos?
@@ -155,11 +155,11 @@ namespace TestUnitarios
                 if (dte.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
                 {
                     var totalBrutoAfecto = dte.Documento.Detalles
-                    .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NotSet)
+                    .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NotSet)
                     .Sum(x => x.MontoItem);
 
                     var totalExento = dte.Documento.Detalles
-                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento)
+                        .Where(x => x.IndicadorExento == IndicadorFacturacionExencionEnum.NoAfectoOExento)
                         .Sum(x => x.MontoItem);
 
                     var neto = totalBrutoAfecto / 1.19;

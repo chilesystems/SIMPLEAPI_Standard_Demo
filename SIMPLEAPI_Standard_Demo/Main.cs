@@ -66,8 +66,8 @@ namespace SIMPLEAPI_Demo
                 En esencia es lo mismo que para el SII */
                 //var EnvioCliente = GenerarEnvioCliente(dte, xml);
                 /*Puede ser el EnvioSII o EnvioCliente, pues es el mismo tipo de objeto*/
-                int min = dtes.Min(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
-                int max = dtes.Max(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
+                long min = dtes.Min(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
+                long max = dtes.Max(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
                 var filePath = EnvioSII.Firmar(configuracion.Certificado.Nombre, customName: $"Envio_{DateTime.Now.ToShortDateString()}_{min}_{max}");
                 handler.Validate(filePath, Firma.TipoXML.Envio, SimpleAPI.XML.Schemas.EnvioDTE);
                 MessageBox.Show("Envío generado exitosamente en " + filePath);
@@ -291,8 +291,8 @@ namespace SIMPLEAPI_Demo
                 }
                 var EnvioSII = handler.GenerarEnvioBoletaDTEToSII(dtes, xmlDtes);
 
-                int min = dtes.Min(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
-                int max = dtes.Max(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
+                long min = dtes.Min(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
+                long max = dtes.Max(x => x.Documento.Encabezado.IdentificacionDTE.Folio);
 
                 var filePath = EnvioSII.Firmar(configuracion.Certificado.Nombre, customName: $"EnvioBoleta_{DateTime.Now.ToShortDateString()}_{min}_{max}");
                 try
@@ -962,7 +962,7 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Detalles = new List<DetalleExportacion>();
             var detalle = new DetalleExportacion();
             detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
             detalle.Nombre = "CHATARRA DE ALUMINIO";
             detalle.Cantidad = 148;
             detalle.UnidadMedida = "U";
@@ -1029,7 +1029,7 @@ namespace SIMPLEAPI_Demo
             dteNC.Exportaciones.Detalles = new List<DetalleExportacion>();
             var detalleNC = new DetalleExportacion();
             detalleNC.NumeroLinea = 1;
-            detalleNC.IndicadorExento = IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            detalleNC.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
             detalleNC.Nombre = detalle.Nombre;
             detalleNC.Cantidad = 49;
             detalleNC.UnidadMedida = detalle.UnidadMedida;
@@ -1126,7 +1126,7 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Detalles = new List<DetalleExportacion>();
             var detalle = new DetalleExportacion();
             detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
             detalle.Nombre = "ASESORIAS Y PROYECTOS PROFESIONALES";
             detalle.Cantidad = 1;
             detalle.Precio = 19;
@@ -1196,7 +1196,7 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Detalles = new List<DetalleExportacion>();
             detalle = new DetalleExportacion();
             detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
             detalle.Nombre = "CAJAS CIRUELAS TIERNIZADAS SIN CAROZO CALIBRE 60/70";
             detalle.Cantidad = 290;
             detalle.UnidadMedida = "KN";
@@ -1209,7 +1209,7 @@ namespace SIMPLEAPI_Demo
 
             detalle = new DetalleExportacion();
             detalle.NumeroLinea = 2;
-            detalle.IndicadorExento = IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
             detalle.Nombre = "CAJAS DE PASAS DE UVA FLAME MORENA SIN SEMILLA MEDIANAS";
             detalle.Cantidad = 169;
             detalle.UnidadMedida = "KN";
@@ -1297,7 +1297,7 @@ namespace SIMPLEAPI_Demo
             dte.Exportaciones.Detalles = new List<DetalleExportacion>();
             detalle = new DetalleExportacion();
             detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
             detalle.Nombre = "ALOJAMIENTO HABITACIONES";
             detalle.Cantidad = 1;
             detalle.Precio = 57;

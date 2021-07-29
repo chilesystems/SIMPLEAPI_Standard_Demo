@@ -97,7 +97,7 @@ namespace SIMPLEAPI_Demo.Impresion.Core
                            {
                                Cantidad = detalle.Cantidad,
                                Descripcion = string.IsNullOrEmpty(detalle.Nombre) ? detalle.Descripcion : detalle.Nombre,
-                               IsExento = detalle.IndicadorExento == IndicadorFacturacionExencion.IndicadorFacturacionExencionEnum.NoAfectoOExento,
+                               IsExento = detalle.IndicadorExento == IndicadorFacturacionExencionEnum.NoAfectoOExento,
                                Precio = detalle.Precio,
                                Total = detalle.MontoItem,
                                UnidadMedida = detalle.UnidadMedida
