@@ -1,9 +1,12 @@
 ﻿using SimpleAPI.Enum;
 using SimpleAPI.Models.DTE;
 using SimpleAPI.Models.Envios;
+using SimpleAPI.Models.ReciboMercaderia;
+using SimpleAPI.Models.RespuestaEnvio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Caratula = SimpleAPI.Models.Envios.Caratula;
 
 namespace TestUnitarios
 {
@@ -233,5 +236,99 @@ namespace TestUnitarios
             return EnvioSII;
         }
 
+
+        public RespuestaDTE GenerarRespuestaEnvio(List<RecepcionDTE> dtes)
+        {
+            Empresa empresa = new Empresa();
+
+            RespuestaDTE response = new RespuestaDTE();
+            response.Resultado = new Resultado();
+            var result = response.Resultado;
+
+            result.Id = $"R_ENVIO_{DateTime.Now.Ticks}";
+            result.Caratula = new SimpleAPI.Models.RespuestaEnvio.Caratula();
+            result.Caratula.Fecha = DateTime.Now;
+            result.Caratula.IdRespuesta = 1;
+            result.Caratula.MailContacto = "mailcontacto@mail.com";
+            result.Caratula.NombreContacto = "Contacto";
+            result.Caratula.RutResponde = empresa.RutEmpresa;
+
+            result.Caratula.NumeroDetalles = 1;
+            result.Caratula.RutRecibe = "88888888-8";
+
+            result.RecepcionEnvio = new List<RecepcionEnvio>();
+            var recepcionEnvio = new RecepcionEnvio();
+
+            recepcionEnvio.CodigoEnvio = 4545;
+            recepcionEnvio.EnvioDTEId = "SetDoc";
+            recepcionEnvio.FechaRecepcion = DateTime.Now;
+            recepcionEnvio.NumeroDTE = 2;
+            recepcionEnvio.RutEmisor = result.Caratula.RutRecibe;
+            recepcionEnvio.RutReceptor = result.Caratula.RutResponde;
+            recepcionEnvio.EstadoRecepcionEnvio = EstadoEnvioEmpresa.EstadoEnvioEmpresaEnum.OK;
+            recepcionEnvio.GlosaEstadoRecepcionEnvio = "ENVIO OK";
+            recepcionEnvio.NombreArchivoEnvio = "ENVIO_DTE_1072427";
+            recepcionEnvio.RecepcionDTE = new List<RecepcionDTE>();
+
+            foreach (var dte_ in dtes)
+            {
+                //Aquí indicar el estado de la recepción
+                dte_.EstadoRecepcionDTE = EstadoRecepcionDTE.EstadoRecepcionDTEEnum.Ok;
+                dte_.GlosaEstadoRecepcionDTE = SimpleAPI.Enum.EstadoRecepcionDTE.Glosa(dte_.EstadoRecepcionDTE);
+                recepcionEnvio.RecepcionDTE.Add(dte_);
+            }
+
+            result.RecepcionEnvio.Add(recepcionEnvio);
+
+            return response;
+        }
+
+        public RespuestaDTE GenerarRespuestaDTE(List<ResultadoDTE> dtes)
+        {
+            Empresa empresa = new Empresa();
+            RespuestaDTE response = new RespuestaDTE();
+            response.Resultado = new Resultado();
+
+            var result = response.Resultado;
+            result.Id = $"APROBACION_COMERCIAL_{DateTime.Now.Ticks}";
+            result.Caratula = new SimpleAPI.Models.RespuestaEnvio.Caratula();
+            result.Caratula.Fecha = DateTime.Now;
+            result.Caratula.IdRespuesta = 1;
+            result.Caratula.MailContacto = "test@test.cl";
+            result.Caratula.NombreContacto = "Nombre Contacto";
+            result.Caratula.RutResponde = empresa.RutEmpresa;
+
+            result.Caratula.NumeroDetalles = 1;
+            result.Caratula.RutRecibe = "88888888-8";
+
+            result.ResultadoDTE = dtes;
+            return response;
+        }
+        public EnvioRecibos AcuseReciboMercaderias(Recibo recibo)
+        {
+            recibo.DocumentoRecibo.Id = $"RM_{DateTime.Now.Ticks}";
+            Empresa empresa = new Empresa();
+            EnvioRecibos envio = new EnvioRecibos();
+            envio.SetRecibos = new SetRecibos()
+            {
+                Id = "EARM00",
+                Caratula = new SimpleAPI.Models.ReciboMercaderia.Caratula()
+                {
+                    RutRecibe = "88888888-8",
+                    RutResponde = empresa.RutEmpresa,
+                    NombreContacto = "Nombre Contacto"
+                }
+            };
+
+            envio.SetRecibos.Recibos = new List<Recibo>()
+            {
+                recibo
+            };
+
+            envio.SetRecibos.Id = $"EARM_{DateTime.Now.Ticks}";            
+            envio.SetRecibos.signedXmls.Add(recibo.filePath);
+
+            return envio;
+        }
     }
 }

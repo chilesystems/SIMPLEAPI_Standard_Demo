@@ -91,7 +91,7 @@ namespace SIMPLEAPI_Demo
                 Comuna = textComunaReceptor.Text
             };
 
-            if (tipoDte == TipoDTE.DTEType.BoletaElectronica)
+            if (tipoDte == TipoDTE.DTEType.BoletaElectronica || tipoDte == TipoDTE.DTEType.BoletaElectronicaExenta)
             {
                 emisor.RazonSocialBoleta = textRazonSocialEmisor.Text;
                 emisor.GiroBoleta = textGiroEmisor.Text;

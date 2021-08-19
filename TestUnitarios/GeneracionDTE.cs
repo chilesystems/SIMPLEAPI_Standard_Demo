@@ -8,7 +8,7 @@ namespace TestUnitarios
     {
         Handler handler = new Handler();
         private string pathCAF_Boletas = System.IO.Path.Combine("Files", "CAF_boletas_1_50.xml");
-        private string pathCertificado = System.IO.Path.Combine("Files", "CertificadoDigital.pfx");
+        private string pathCertificado = System.IO.Path.Combine("Files", "CertificadoGonzalo2021.pfx");
 
         [Fact]
         public void TimbreCorrecto()

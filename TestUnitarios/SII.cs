@@ -55,14 +55,16 @@ namespace TestUnitarios
         }
 
         [Fact]
-        public async Task EnviarAceptacion()
+        public async Task EnviarAceptacionSII()
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var ambiente = Ambiente.AmbienteEnum.Produccion;
-            var entity = new AceptacionReclamoEntity("90635000-9", 33, 46714594, TipoAceptacion.ACD);
+            var entity = new AceptacionReclamoEntity("76203747-5", 33, 9420, TipoAceptacion.ERM);
             var aceptacion = await SimpleAPI.WS.AceptacionReclamo.AceptacionReclamo.NotificarAceptacionReclamoAsync(entity, pathCertificado, ambiente, pathToken, "Pollito702");
 
-            Assert.True(true);
+            Assert.True(aceptacion.CodRespuesta != 4);
         }
+
+       
     }
 }
