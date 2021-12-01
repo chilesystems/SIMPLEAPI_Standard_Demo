@@ -60,11 +60,6 @@ namespace SIMPLEAPI_Demo
                         tipoSchema = SimpleAPI.XML.Schemas.ConsumoFolios;
                         tipoFirma = Firma.TipoXML.RCOF;
                     }
-                    else if (tipo == "LIBROBOLETA")
-                    {
-                        tipoSchema = SimpleAPI.XML.Schemas.LibroBoletas;
-                        tipoFirma = Firma.TipoXML.LibroBoletas;
-                    }
                     else if (tipo == "AEC")
                     {
                         tipoSchema = SimpleAPI.XML.Schemas.AEC;

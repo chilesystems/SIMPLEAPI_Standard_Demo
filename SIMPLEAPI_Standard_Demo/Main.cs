@@ -321,8 +321,8 @@ namespace SIMPLEAPI_Demo
                  * RFT: Reclamo por Falta Total de Mercaderías
                  */
             int tipoDocumento = 33;
-            int folio = 17158136;
-            string rutProveedor = "88888888-8";
+            int folio = 3591;
+            string rutProveedor = "76810888-9";
             var respuesta = await handler.EnviarAceptacionReclamo(tipoDocumento, folio, TipoAceptacion.ACD, rutProveedor, radioCertificacion.Checked ? AmbienteEnum.Certificacion : AmbienteEnum.Produccion);
             MessageBox.Show(respuesta);
         }
@@ -848,7 +848,7 @@ namespace SIMPLEAPI_Demo
                 /*Creo el objeto cesion a partir de DTE leído, se le indica el número de secuencia de
                   la cesión. Pueden existir varias cesiones.*/
                 var dte = SimpleAPI.XML.XmlHandler.DeserializeFromString<DTE>(xml);
-                var cesion = new SimpleAPI.Models.Cesion.Cesion(dte, 1);
+                var cesion = new SimpleAPI.Models.Cesion.Cesion();
 
                 /*Datos del factoring*/
                 var cesionario = new SimpleAPI.Models.Cesion.Cesionario()
