@@ -103,26 +103,26 @@ namespace SIMPLEAPI_Demo
             for (int i = 31; i <= 50; i++)
             {
                 var dteAux = handler.GenerateRandomDTE(i, TipoDTE.DTEType.FacturaElectronica);
-                string filePath = await handler.TimbrarYFirmarXMLDTE(dteAux, "out\\temp\\", "out\\caf\\");
+                string filePath = handler.TimbrarYFirmarXMLDTE(dteAux, "out\\temp\\", "out\\caf\\");
                 string xml = File.ReadAllText(filePath, Encoding.GetEncoding("ISO-8859-1"));
                 dtes.Add(dteAux);
                 xmlDtes.Add(xml);
             }
 
             var dteAux2 = handler.GenerateRandomDTE(33, TipoDTE.DTEType.NotaCreditoElectronica);
-            var filePath2 = await handler.TimbrarYFirmarXMLDTE(dteAux2, "out\\temp\\", "out\\caf\\");
+            var filePath2 = handler.TimbrarYFirmarXMLDTE(dteAux2, "out\\temp\\", "out\\caf\\");
             var xml2 = File.ReadAllText(filePath2, Encoding.GetEncoding("ISO-8859-1"));
             dtes.Add(dteAux2);
             xmlDtes.Add(xml2);
 
             var dteAux3 = handler.GenerateRandomDTE(23, TipoDTE.DTEType.NotaDebitoElectronica);
-            var filePath3 = await handler.TimbrarYFirmarXMLDTE(dteAux3, "out\\temp\\", "out\\caf\\");
+            var filePath3 = handler.TimbrarYFirmarXMLDTE(dteAux3, "out\\temp\\", "out\\caf\\");
             var xml3 = File.ReadAllText(filePath3, Encoding.GetEncoding("ISO-8859-1"));
             dtes.Add(dteAux3);
             xmlDtes.Add(xml3);
 
             var dteAux4 = handler.GenerateRandomDTE(19, TipoDTE.DTEType.FacturaCompraElectronica);
-            var filePath4 = await handler.TimbrarYFirmarXMLDTE(dteAux4, "out\\temp\\", "out\\caf\\");
+            var filePath4 = handler.TimbrarYFirmarXMLDTE(dteAux4, "out\\temp\\", "out\\caf\\");
             var xml4 = File.ReadAllText(filePath4, Encoding.GetEncoding("ISO-8859-1"));
             dtes.Add(dteAux4);
             xmlDtes.Add(xml4);
@@ -210,7 +210,7 @@ namespace SIMPLEAPI_Demo
                     TipoDocumento = TipoDTE.TipoReferencia.BoletaElectronica
                 });
 
-                var path = await handler.TimbrarYFirmarXMLDTE(dteNC, "out\\temp\\", "out\\caf\\");
+                var path = handler.TimbrarYFirmarXMLDTE(dteNC, "out\\temp\\", "out\\caf\\");
                 handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
 
                 MessageBox.Show("Nota de crédito generada exitosamente en " + path);
@@ -265,7 +265,7 @@ namespace SIMPLEAPI_Demo
                     Valor = porc_descuento * 100,
                 });
 
-                var path = await handler.TimbrarYFirmarXMLDTE(dteNC, "out\\temp\\", "out\\caf\\");
+                var path = handler.TimbrarYFirmarXMLDTE(dteNC, "out\\temp\\", "out\\caf\\");
                 handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
 
                 MessageBox.Show("Nota de crédito generada exitosamente en " + path);
@@ -386,7 +386,7 @@ namespace SIMPLEAPI_Demo
             });
             handler.GenerateDetails(dte, detalles);
             handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, TipoDTE.TipoReferencia.NotSet, DateTime.Now, folios[0], casoPruebas);
-            var path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            var path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
 
@@ -414,7 +414,7 @@ namespace SIMPLEAPI_Demo
             });
             handler.GenerateDetails(dte, detalles);
             handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, TipoDTE.TipoReferencia.NotSet, DateTime.Now, folios[1], casoPruebas);
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -446,7 +446,7 @@ namespace SIMPLEAPI_Demo
             });
             handler.GenerateDetails(dte, detalles);
             handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, TipoDTE.TipoReferencia.NotSet, DateTime.Now, folios[2], casoPruebas);
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -489,7 +489,7 @@ namespace SIMPLEAPI_Demo
 
             handler.GenerateDetails(dte, detalles);
             handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, TipoDTE.TipoReferencia.NotSet, DateTime.Now, folios[3], casoPruebas);
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -515,7 +515,7 @@ namespace SIMPLEAPI_Demo
                 RazonReferencia = "CORRIGE GIRO DEL RECEPTOR",
                 TipoDocumento = TipoDTE.TipoReferencia.FacturaElectronica
             });
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -552,7 +552,7 @@ namespace SIMPLEAPI_Demo
                 RazonReferencia = "DEVOLUCIÓN DE MERCADERÍAS",
                 TipoDocumento = TipoDTE.TipoReferencia.FacturaElectronica
             });
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -595,7 +595,7 @@ namespace SIMPLEAPI_Demo
                 RazonReferencia = "ANULA FACTURA",
                 TipoDocumento = TipoDTE.TipoReferencia.FacturaElectronica
             });
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -622,7 +622,7 @@ namespace SIMPLEAPI_Demo
                 RazonReferencia = "ANULA NOTA DE CREDITO",
                 TipoDocumento = TipoDTE.TipoReferencia.NotaCreditoElectronica
             });
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -701,7 +701,7 @@ namespace SIMPLEAPI_Demo
             });
             handler.GenerateDetails(dte, detalles);
             handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, TipoDTE.TipoReferencia.NotSet, DateTime.Now, folios[0], casoPruebas);
-            var path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            var path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -737,7 +737,7 @@ namespace SIMPLEAPI_Demo
                 RazonReferencia = "DEVOLUCIÓN DE MERCADERÍA ITEMS 1 Y 2",
                 TipoDocumento = TipoDTE.TipoReferencia.FacturaCompraElectronica
             });
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -773,7 +773,7 @@ namespace SIMPLEAPI_Demo
                 RazonReferencia = "ANULA NOTA DE CREDITO",
                 TipoDocumento = TipoDTE.TipoReferencia.NotaCreditoElectronica
             });
-            path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
             pathFiles.Add(path);
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             /********************************/
@@ -1380,7 +1380,7 @@ namespace SIMPLEAPI_Demo
             //Esta referencia indica que se trata de un set de pruebas
             handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, TipoDTE.TipoReferencia.NotSet, null, null, "CASO X");
 
-            var path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            var path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
 
             string contenido = dte.ToString();
 

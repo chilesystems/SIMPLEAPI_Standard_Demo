@@ -44,7 +44,6 @@ namespace SIMPLEAPI_Demo
                 comboCertificados.SelectedItem = configuracion.Certificado.Nombre;
                 numericNResolucion.Value = configuracion.Empresa.NumeroResolucion;
                 dateFechaResolucion.Value = configuracion.Empresa.FechaResolucion;
-                textAPIKey.Text = configuracion.APIKey;
 
                 gridResultados.DataSource = null;
                 gridResultados.DataSource = configuracion.Empresa.CodigosActividades;
@@ -78,7 +77,6 @@ namespace SIMPLEAPI_Demo
             configuracion.Empresa.Direccion = textDireccionEmpresa.Text;
             configuracion.Empresa.NumeroResolucion = (int)numericNResolucion.Value;
             configuracion.Empresa.FechaResolucion = dateFechaResolucion.Value.Date;
-            configuracion.APIKey = textAPIKey.Text;
 
             configuracion.Certificado.Rut = textRutCertificado.Text;
             configuracion.Certificado.Nombre = comboCertificados.SelectedItem.ToString();

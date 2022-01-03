@@ -393,7 +393,7 @@ namespace SIMPLEAPI_Demo
             }
         }
 
-        public async Task<string> TimbrarYFirmarXMLDTE(DTE dte, string pathResult, string pathCaf)
+        public string TimbrarYFirmarXMLDTE(DTE dte, string pathResult, string pathCaf)
         {
             /*En primer lugar, el documento debe timbrarse con el CAF que descargas desde el SII, es simular
              * cuando antes debías ir con las facturas en papel para que te las timbraran */
@@ -408,8 +408,8 @@ namespace SIMPLEAPI_Demo
             /*Finalmente, el documento timbrado debe firmarse con el certificado digital*/
             /*Se debe entregar en el argumento del método Firmar, el "FriendlyName" o Nombre descriptivo del certificado*/
             /*Retorna el filePath donde estará el archivo XML timbrado y firmado, listo para ser enviado al SII*/
-            var resultado = await dte.Firmar(configuracion.Certificado.Nombre, configuracion.APIKey, "out\\temp\\");
-            return resultado.Item1;
+            var resultado = dte.Firmar(configuracion.Certificado.Nombre);
+            return resultado.Item2;
         }
 
         public string TimbrarYFirmarXMLDTEExportacion(DTE dte, string pathResult, string pathCaf)
@@ -562,8 +562,8 @@ namespace SIMPLEAPI_Demo
             {
                 EnvioDTEResult responseEnvio = new EnvioDTEResult();
 
-                if (nuevaBoleta) responseEnvio = await SimpleAPI.WS.Envio.EnvioBoleta.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat", configuracion.APIKey);
-                else responseEnvio = await SimpleAPI.WS.Envio.EnvioDTE.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat", configuracion.APIKey);
+                if (nuevaBoleta) responseEnvio = await SimpleAPI.WS.Envio.EnvioBoleta.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
+                else responseEnvio = await SimpleAPI.WS.Envio.EnvioDTE.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
 
                 if (responseEnvio != null && responseEnvio.TrackId > 0)
                 {

@@ -42,7 +42,7 @@ namespace TestUnitarios
             });
 
             var respuestaEnvio = handler.GenerarRespuestaEnvio(dtes);
-            var filepath = respuestaEnvio.Firmar(pathCertificado, string.Empty, "Pollito702");
+            var filepath = respuestaEnvio.Firmar(pathCertificado, "Pollito702");
             Assert.True(System.IO.File.Exists(filepath));
             System.IO.File.Delete(filepath);
         }
@@ -82,7 +82,7 @@ namespace TestUnitarios
             });
 
             var respuestaEnvio = handler.GenerarRespuestaDTE(dtes);
-            var filepath = respuestaEnvio.Firmar(pathCertificado, string.Empty, "Pollito702");
+            var filepath = respuestaEnvio.Firmar(pathCertificado, "Pollito702");
             Assert.True(System.IO.File.Exists(filepath));
             System.IO.File.Delete(filepath);
         }
@@ -108,12 +108,12 @@ namespace TestUnitarios
                 }
             };
 
-            recibo.Firmar(pathCertificado, "Pollito702");
+            var pathRecibo = recibo.Firmar(pathCertificado, "Pollito702");
             var respuestaEnvio = handler.AcuseReciboMercaderias(recibo);
-            var filepath = respuestaEnvio.Firmar(pathCertificado, string.Empty, "Pollito702");
+            var filepath = respuestaEnvio.Firmar(pathCertificado, "Pollito702");
             Assert.True(System.IO.File.Exists(filepath));
             System.IO.File.Delete(filepath);
-            System.IO.File.Delete(recibo.filePath);
+            System.IO.File.Delete(pathRecibo);
         }
     }
 }

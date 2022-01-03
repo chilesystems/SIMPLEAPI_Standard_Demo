@@ -114,7 +114,7 @@ namespace SIMPLEAPI_Demo
                 handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, tipoDte == TipoDTE.DTEType.BoletaElectronica ? TipoDTE.TipoReferencia.BoletaElectronica : TipoDTE.TipoReferencia.FacturaElectronica, null, 0, casoPrueba);
             }
 
-            var path = await handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
+            var path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
 
             handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             MessageBox.Show("Documento generado exitosamente");
