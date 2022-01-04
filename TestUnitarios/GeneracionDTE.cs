@@ -29,27 +29,27 @@ namespace TestUnitarios
         }
 
         [Fact]
-        public async void FirmaCorrecta()
+        public void FirmaCorrecta()
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 1);
             handler.GenerateDetails(dte);
             dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
-            var resultado = await dte.Firmar(pathCertificado, "1523-Z930-6403-4900-6397", "", $"DTE_{DateTime.Now.Ticks.ToString()}", "Pollito702");
-            System.IO.File.Delete(resultado.Item1);
-            Assert.Equal(string.Empty, resultado.Item2);
+            var resultado = dte.Firmar(pathCertificado, "", $"DTE_{DateTime.Now.Ticks.ToString()}", "Pollito702");
+            System.IO.File.Delete(resultado);
+            Assert.Equal(string.Empty, resultado);
         }
 
         [Fact]
-        public async void FirmaPasswordIncorrecta()
+        public void FirmaPasswordIncorrecta()
         {
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 1);
             handler.GenerateDetails(dte);
             dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
-            var resultado = await dte.Firmar(pathCertificado, "1523-Z930-6403-4900-6397", "", $"DTE_{DateTime.Now.Ticks.ToString()}", "PasswordCualquiera");
-            System.IO.File.Delete(resultado.Item1);
-            Assert.Equal(string.Empty, resultado.Item2);
+            var resultado = dte.Firmar(pathCertificado,  "", $"DTE_{DateTime.Now.Ticks.ToString()}", "PasswordCualquiera");
+            System.IO.File.Delete(resultado);
+            Assert.Equal(string.Empty, resultado);
         }
     }
 }

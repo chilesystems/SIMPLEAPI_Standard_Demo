@@ -72,7 +72,7 @@ namespace SIMPLEAPI_Demo
             }
         }
 
-        private async void botonGenerar_Click(object sender, EventArgs e)
+        private void botonGenerar_Click(object sender, EventArgs e)
         {
             var tipoDte = comboTipo.SelectedIndex == 0 ? TipoDTE.DTEType.BoletaElectronica : TipoDTE.DTEType.FacturaElectronica;
 

@@ -220,18 +220,6 @@ namespace TestUnitarios
                     });
                 }
             }
-            else if (EnvioSII.SetDTE.DTEs.Any(x => !string.IsNullOrEmpty(x.Exportaciones.Id)))
-            {
-                var tipos = EnvioSII.SetDTE.DTEs.GroupBy(x => x.Exportaciones.Encabezado.IdentificacionDTE.TipoDTE);
-                foreach (var a in tipos)
-                {
-                    EnvioSII.SetDTE.Caratula.SubTotalesDTE.Add(new SubTotalesDTE()
-                    {
-                        Cantidad = a.Count(),
-                        TipoDTE = a.ElementAt(0).Exportaciones.Encabezado.IdentificacionDTE.TipoDTE
-                    });
-                }
-            }
 
             return EnvioSII;
         }
@@ -326,7 +314,7 @@ namespace TestUnitarios
             };
 
             envio.SetRecibos.Id = $"EARM_{DateTime.Now.Ticks}";            
-            envio.SetRecibos.signedXmls.Add(recibo.filePath);
+            envio.SetRecibos.signedXmls.Add("recibo.filePath");
 
             return envio;
         }

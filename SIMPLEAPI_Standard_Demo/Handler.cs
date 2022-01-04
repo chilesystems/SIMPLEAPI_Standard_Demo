@@ -115,10 +115,10 @@ namespace SIMPLEAPI_Demo
             return dte;
         }
 
-        public DTE GenerateDTEExportacionBase(TipoDTE.DTEType tipoDTE, int folio, string idDTE = "")
+        public DTEExportacion GenerateDTEExportacionBase(TipoDTE.DTEType tipoDTE, int folio, string idDTE = "")
         {
             // DOCUMENTO
-            var dte = new DTE();
+            var dte = new DTEExportacion();
             dte.Exportaciones = new Exportaciones();
             dte.Exportaciones.Id = string.IsNullOrEmpty(idDTE) ? "DTE_" + DateTime.Now.Ticks.ToString() : idDTE;
 
@@ -151,7 +151,7 @@ namespace SIMPLEAPI_Demo
             return dte;
         }
 
-        public void CalculateTotalesExportacion(DTE dte, double adicional = 0)
+        public void CalculateTotalesExportacion(DTEExportacion dte, double adicional = 0)
         {
             int total = (int)Math.Round(dte.Exportaciones.Detalles.Sum(x => x.MontoItem) + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro + adicional, 0);
             //int total = (int)Math.Round((decimal)dte.Exportaciones.Detalles.Sum(x => x.MontoItem), 0);
@@ -200,7 +200,7 @@ namespace SIMPLEAPI_Demo
             calculosTotales(dte);
         }
 
-        public void GenerateDetailsExportacion(DTE dte)
+        public void GenerateDetailsExportacion(DTEExportacion dte)
         {
             dte.Exportaciones.Detalles = new List<DetalleExportacion>();
             var detalle = new DetalleExportacion();
@@ -409,10 +409,10 @@ namespace SIMPLEAPI_Demo
             /*Se debe entregar en el argumento del método Firmar, el "FriendlyName" o Nombre descriptivo del certificado*/
             /*Retorna el filePath donde estará el archivo XML timbrado y firmado, listo para ser enviado al SII*/
             var resultado = dte.Firmar(configuracion.Certificado.Nombre);
-            return resultado.Item2;
+            return resultado;
         }
 
-        public string TimbrarYFirmarXMLDTEExportacion(DTE dte, string pathResult, string pathCaf)
+        public string TimbrarYFirmarXMLDTEExportacion(DTEExportacion dte, string pathResult, string pathCaf)
         {
 
             /*En primer lugar, el documento debe timbrarse con el CAF que descargas desde el SII, es simular
@@ -427,7 +427,7 @@ namespace SIMPLEAPI_Demo
             /*Finalmente, el documento timbrado debe firmarse con el certificado digital*/
             /*Se debe entregar en el argumento del método Firmar, el "FriendlyName" o Nombre descriptivo del certificado*/
             /*Retorna el filePath donde estará el archivo XML timbrado y firmado, listo para ser enviado al SII*/
-            return dte.FirmarExportacion(configuracion.Certificado.Nombre, out messageOut, "out\\temp\\");
+            return dte.FirmarExportacion(configuracion.Certificado.Nombre);
         }
 
         public bool Validate(string filePath, SimpleAPI.Security.Firma.TipoXML tipo, string schema)
@@ -511,15 +511,46 @@ namespace SIMPLEAPI_Demo
                     });
                 }
             }
-            else if (EnvioSII.SetDTE.DTEs.Any(x => !string.IsNullOrEmpty(x.Exportaciones.Id)))
+            return EnvioSII;
+        }
+
+        public SimpleAPI.Models.Envios.EnvioDTE GenerarEnvioDTEExportacionToSII(List<DTEExportacion> dtes, List<string> xmlDtes)
+        {
+            var EnvioSII = new SimpleAPI.Models.Envios.EnvioDTE();
+            EnvioSII.SetDTE = new SetDTE();
+            EnvioSII.SetDTE.Id = "FENV010";
+            /*Es necesario agregar en el envío, los objetos DTE como sus respectivos XML en strings*/
+            foreach (var a in dtes)
+                EnvioSII.SetDTE.DTEs.Add(a);
+            foreach (var a in xmlDtes)
             {
-                var tipos = EnvioSII.SetDTE.DTEs.GroupBy(x => x.Exportaciones.Encabezado.IdentificacionDTE.TipoDTE);
+                EnvioSII.SetDTE.dteXmls.Add(a);
+                EnvioSII.SetDTE.signedXmls.Add(a);
+            }
+
+
+            EnvioSII.SetDTE.Caratula = new SimpleAPI.Models.Envios.Caratula();
+            EnvioSII.SetDTE.Caratula.FechaEnvio = DateTime.Now;
+            /*Fecha de Resolución y Número de Resolución se averiguan en el sitio del SII según ambiente de producción o certificación*/
+            EnvioSII.SetDTE.Caratula.FechaResolucion = configuracion.Empresa.FechaResolucion;
+            EnvioSII.SetDTE.Caratula.NumeroResolucion = configuracion.Empresa.NumeroResolucion;
+
+            EnvioSII.SetDTE.Caratula.RutEmisor = configuracion.Empresa.RutEmpresa;
+            EnvioSII.SetDTE.Caratula.RutEnvia = configuracion.Certificado.Rut;
+            EnvioSII.SetDTE.Caratula.RutReceptor = "60803000-K"; //Este es el RUT del SII
+            EnvioSII.SetDTE.Caratula.SubTotalesDTE = new List<SubTotalesDTE>();
+
+            /*En la carátula del envío, se debe indicar cuantos documentos de cada tipo se están enviando*/
+
+            if (EnvioSII.SetDTE.DTEs.Any(x => !string.IsNullOrEmpty(x.Documento.Id)))
+            {
+                var tipos = EnvioSII.SetDTE.DTEs.GroupBy(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE);
                 foreach (var a in tipos)
                 {
                     EnvioSII.SetDTE.Caratula.SubTotalesDTE.Add(new SubTotalesDTE()
                     {
                         Cantidad = a.Count(),
-                        TipoDTE = a.ElementAt(0).Exportaciones.Encabezado.IdentificacionDTE.TipoDTE
+                        TipoDTE = a.ElementAt(0).Documento.Encabezado.IdentificacionDTE.TipoDTE
                     });
                 }
             }
