@@ -47,11 +47,11 @@ namespace SIMPLEAPI_Demo.Impresion.Core
         /// <summary>
         /// NOMBRE IMPUESTO | VALOR
         /// </summary>
-        public List<(string, int)> Adicionales { get; set; }
-        public int Neto { get; set; }
-        public int IVA { get; set; }
-        public int Total { get; set; }
-        public int TotalExento { get; set; }
+        public List<(string, long)> Adicionales { get; set; }
+        public long Neto { get; set; }
+        public long IVA { get; set; }
+        public long Total { get; set; }
+        public long TotalExento { get; set; }
 
 
         // SII //
@@ -119,7 +119,7 @@ namespace SIMPLEAPI_Demo.Impresion.Core
                           value));
                 }
 
-                doc.Adicionales = new List<(string, int)>();
+                doc.Adicionales = new List<(string, long)>();
                 foreach (var item in dte.Documento.Encabezado.Totales.ImpuestosRetenciones)
                 {
                     doc.Adicionales.Add((item.TipoImpuesto.ToString(), item.MontoImpuesto));

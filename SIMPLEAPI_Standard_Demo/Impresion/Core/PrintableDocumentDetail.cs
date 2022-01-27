@@ -7,6 +7,6 @@
         public string UnidadMedida { get; set; }
         public string Descripcion { get; set; }
         public double Precio { get; set; }
-        public int Total { get; set; }
+        public long Total { get; set; }
     }
 }
