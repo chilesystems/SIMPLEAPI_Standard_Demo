@@ -15,7 +15,7 @@ namespace TestUnitarios
         {
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 1);
             handler.GenerateDetails(dte);
-            var resultado = dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
+            var resultado = dte.Documento.Timbrar(pathCAF_Boletas);
             Assert.True(resultado);
         }
 
@@ -24,7 +24,7 @@ namespace TestUnitarios
         {
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 51);
             handler.GenerateDetails(dte);
-            var resultado = dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
+            var resultado = dte.Documento.Timbrar(pathCAF_Boletas);
             Assert.False(resultado);
         }
 
@@ -34,8 +34,8 @@ namespace TestUnitarios
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 1);
             handler.GenerateDetails(dte);
-            dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
-            var resultado = dte.Firmar(pathCertificado, "", $"DTE_{DateTime.Now.Ticks.ToString()}", "Pollito702");
+            dte.Documento.Timbrar(pathCAF_Boletas);
+            var resultado = dte.Firmar(pathCertificado, "", $"DTE_{DateTime.Now.Ticks.ToString()}", "Password");
             System.IO.File.Delete(resultado);
             Assert.Equal(string.Empty, resultado);
         }
@@ -46,8 +46,8 @@ namespace TestUnitarios
             if (!System.IO.File.Exists(pathCertificado)) throw new Exception("No existe certificado digital");
             var dte = handler.GenerateDTE(TipoDTE.DTEType.BoletaElectronica, 1);
             handler.GenerateDetails(dte);
-            dte.Documento.Timbrar(pathCAF_Boletas, out string messageOut);
-            var resultado = dte.Firmar(pathCertificado,  "", $"DTE_{DateTime.Now.Ticks.ToString()}", "PasswordCualquiera");
+            dte.Documento.Timbrar(pathCAF_Boletas);
+            var resultado = dte.Firmar(pathCertificado,  "", $"DTE_{DateTime.Now.Ticks.ToString()}", "Password");
             System.IO.File.Delete(resultado);
             Assert.Equal(string.Empty, resultado);
         }

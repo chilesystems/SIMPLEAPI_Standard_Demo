@@ -38,8 +38,6 @@
             this.botonMuestraImpresa = new System.Windows.Forms.Button();
             this.botonLibroGuias = new System.Windows.Forms.Button();
             this.botonSimulacion = new System.Windows.Forms.Button();
-            this.botonSetExportacion2 = new System.Windows.Forms.Button();
-            this.botonSetExportacion = new System.Windows.Forms.Button();
             this.botonCesion = new System.Windows.Forms.Button();
             this.botonIntercambio = new System.Windows.Forms.Button();
             this.botonSetPruebas = new System.Windows.Forms.Button();
@@ -148,7 +146,7 @@
             // 
             // botonMuestraImpresa
             // 
-            this.botonMuestraImpresa.Location = new System.Drawing.Point(6, 251);
+            this.botonMuestraImpresa.Location = new System.Drawing.Point(6, 193);
             this.botonMuestraImpresa.Name = "botonMuestraImpresa";
             this.botonMuestraImpresa.Size = new System.Drawing.Size(151, 23);
             this.botonMuestraImpresa.TabIndex = 19;
@@ -158,7 +156,7 @@
             // 
             // botonLibroGuias
             // 
-            this.botonLibroGuias.Location = new System.Drawing.Point(6, 222);
+            this.botonLibroGuias.Location = new System.Drawing.Point(6, 164);
             this.botonLibroGuias.Name = "botonLibroGuias";
             this.botonLibroGuias.Size = new System.Drawing.Size(151, 23);
             this.botonLibroGuias.TabIndex = 18;
@@ -175,24 +173,6 @@
             this.botonSimulacion.Text = "Simular N Documentos";
             this.botonSimulacion.UseVisualStyleBackColor = true;
             this.botonSimulacion.Click += new System.EventHandler(this.botonSimulacion_Click);
-            // 
-            // botonSetExportacion2
-            // 
-            this.botonSetExportacion2.Location = new System.Drawing.Point(6, 192);
-            this.botonSetExportacion2.Name = "botonSetExportacion2";
-            this.botonSetExportacion2.Size = new System.Drawing.Size(151, 23);
-            this.botonSetExportacion2.TabIndex = 20;
-            this.botonSetExportacion2.Text = "SET de Exportación (2)";
-            this.botonSetExportacion2.UseVisualStyleBackColor = true;
-            // 
-            // botonSetExportacion
-            // 
-            this.botonSetExportacion.Location = new System.Drawing.Point(6, 164);
-            this.botonSetExportacion.Name = "botonSetExportacion";
-            this.botonSetExportacion.Size = new System.Drawing.Size(151, 23);
-            this.botonSetExportacion.TabIndex = 17;
-            this.botonSetExportacion.Text = "SET de Exportación (1)";
-            this.botonSetExportacion.UseVisualStyleBackColor = true;
             // 
             // botonCesion
             // 
@@ -416,14 +396,12 @@
             this.groupBox3.Controls.Add(this.botonMuestraImpresa);
             this.groupBox3.Controls.Add(this.botonSetPruebas);
             this.groupBox3.Controls.Add(this.botonLibroGuias);
-            this.groupBox3.Controls.Add(this.botonSetExportacion2);
             this.groupBox3.Controls.Add(this.botonIntercambio);
             this.groupBox3.Controls.Add(this.botonCesion);
             this.groupBox3.Controls.Add(this.botonSimulacion);
-            this.groupBox3.Controls.Add(this.botonSetExportacion);
             this.groupBox3.Location = new System.Drawing.Point(181, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(163, 279);
+            this.groupBox3.Size = new System.Drawing.Size(163, 235);
             this.groupBox3.TabIndex = 21;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Certificación";
@@ -511,8 +489,6 @@
         private System.Windows.Forms.Button botonSetPruebas;
         private System.Windows.Forms.Button botonIntercambio;
         private System.Windows.Forms.Button botonCesion;
-        private System.Windows.Forms.Button botonSetExportacion;
-        private System.Windows.Forms.Button botonSetExportacion2;
         private System.Windows.Forms.Button botonGetCertificados;
         private System.Windows.Forms.Button botonLibroGuias;
         private System.Windows.Forms.Button botonMuestraImpresa;

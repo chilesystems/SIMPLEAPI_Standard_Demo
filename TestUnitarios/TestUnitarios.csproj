@@ -34,9 +34,6 @@
     <None Update="Files\CAF_ND_1_50.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Files\CertificadoGonzalo2021.pfx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Files\ENVIO_DTE_REST.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
