@@ -453,7 +453,7 @@ namespace SIMPLEAPI_Demo
         }
 
         public async Task<(long, string)> EnviarEnvioDTEToSIIAsync(string filePathEnvio, AmbienteEnum ambiente, bool nuevaBoleta = false)
-        { 
+        {
             try
             {
                 EnvioDTEResult responseEnvio = new EnvioDTEResult();
@@ -548,19 +548,19 @@ namespace SIMPLEAPI_Demo
             /*datos de boletas electrónicas afectas*/
             /* Estos datos se deben calcular, debido a que no se informa IVA en boletas electrónicas 
              */
-            int totalBrutoAfecto = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
+            long totalBrutoAfecto = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
                         .Sum(x => x.Documento.Detalles
                         .Where(y => y.IndicadorExento == IndicadorFacturacionExencionEnum.NotSet)
                         .Sum(y => y.MontoItem));
 
-            int totalExento = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
+            long totalExento = dtes.Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.BoletaElectronica)
                     .Sum(x => x.Documento.Detalles
                     .Where(y => y.IndicadorExento == IndicadorFacturacionExencionEnum.NoAfectoOExento)
                     .Sum(y => y.MontoItem));
 
-            int totalNeto = (int)Math.Round(totalBrutoAfecto / 1.19, 0, MidpointRounding.AwayFromZero);
-            int totalIVA = (int)Math.Round(totalNeto * 0.19, 0, MidpointRounding.AwayFromZero);
-            int totalTotal = totalExento + totalNeto + totalIVA;
+            long totalNeto = (int)Math.Round(totalBrutoAfecto / 1.19, 0, MidpointRounding.AwayFromZero);
+            long totalIVA = (int)Math.Round(totalNeto * 0.19, 0, MidpointRounding.AwayFromZero);
+            long totalTotal = totalExento + totalNeto + totalIVA;
 
             /*Se calculan todos los rangos según el array de DTEs*/
             var resultRangos = new List<RangoUtilizados>();
@@ -724,19 +724,19 @@ namespace SIMPLEAPI_Demo
             int cantidadDocumentosFacturas = envioAux.SetDTE.DTEs.
                 Count(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.FacturaElectronica);
 
-            int totalExento = envioAux.SetDTE.DTEs.
+            long totalExento = envioAux.SetDTE.DTEs.
                 Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.FacturaElectronica)
                 .Sum(x => x.Documento.Encabezado.Totales.MontoExento);
 
-            int totalNeto = envioAux.SetDTE.DTEs.
+            long totalNeto = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.FacturaElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.MontoNeto);
 
-            int totalIVA = envioAux.SetDTE.DTEs.
+            long totalIVA = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.FacturaElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.IVA);
 
-            int totalTotal = envioAux.SetDTE.DTEs.
+            long totalTotal = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.FacturaElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.MontoTotal);
 
@@ -756,19 +756,19 @@ namespace SIMPLEAPI_Demo
             int cantidadDocumentosNC = envioAux.SetDTE.DTEs.
                 Count(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaCreditoElectronica);
 
-            int totalExentoNC = envioAux.SetDTE.DTEs.
+            long totalExentoNC = envioAux.SetDTE.DTEs.
                 Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaCreditoElectronica)
                 .Sum(x => x.Documento.Encabezado.Totales.MontoExento);
 
-            int totalNetoNC = envioAux.SetDTE.DTEs.
+            long totalNetoNC = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaCreditoElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.MontoNeto);
 
-            int totalIVANC = envioAux.SetDTE.DTEs.
+            long totalIVANC = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaCreditoElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.IVA);
 
-            int totalTotalNC = envioAux.SetDTE.DTEs.
+            long totalTotalNC = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaCreditoElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.MontoTotal);
 
@@ -788,19 +788,19 @@ namespace SIMPLEAPI_Demo
             int cantidadDocumentosND = envioAux.SetDTE.DTEs.
                 Count(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaDebitoElectronica);
 
-            int totalExentoND = envioAux.SetDTE.DTEs.
+            long totalExentoND = envioAux.SetDTE.DTEs.
                 Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaDebitoElectronica)
                 .Sum(x => x.Documento.Encabezado.Totales.MontoExento);
 
-            int totalNetoND = envioAux.SetDTE.DTEs.
+            long totalNetoND = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaDebitoElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.MontoNeto);
 
-            int totalIVAND = envioAux.SetDTE.DTEs.
+            long totalIVAND = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaDebitoElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.IVA);
 
-            int totalTotalND = envioAux.SetDTE.DTEs.
+            long totalTotalND = envioAux.SetDTE.DTEs.
                Where(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE == TipoDTE.DTEType.NotaDebitoElectronica)
                .Sum(x => x.Documento.Encabezado.Totales.MontoTotal);
 
