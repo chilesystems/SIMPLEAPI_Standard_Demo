@@ -184,7 +184,6 @@
             this.botonSetExportacion2.TabIndex = 20;
             this.botonSetExportacion2.Text = "SET de Exportación (2)";
             this.botonSetExportacion2.UseVisualStyleBackColor = true;
-            this.botonSetExportacion2.Click += new System.EventHandler(this.BotonSetExportacion2_Click);
             // 
             // botonSetExportacion
             // 
@@ -194,7 +193,6 @@
             this.botonSetExportacion.TabIndex = 17;
             this.botonSetExportacion.Text = "SET de Exportación (1)";
             this.botonSetExportacion.UseVisualStyleBackColor = true;
-            this.botonSetExportacion.Click += new System.EventHandler(this.BotonSetExportacion_Click);
             // 
             // botonCesion
             // 

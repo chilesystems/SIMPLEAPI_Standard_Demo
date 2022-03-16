@@ -115,61 +115,6 @@ namespace SIMPLEAPI_Demo
             return dte;
         }
 
-        public DTEExportacion GenerateDTEExportacionBase(TipoDTE.DTEType tipoDTE, int folio, string idDTE = "")
-        {
-            // DOCUMENTO
-            var dte = new DTEExportacion();
-            dte.Exportaciones = new Exportaciones();
-            dte.Exportaciones.Id = string.IsNullOrEmpty(idDTE) ? "DTE_" + DateTime.Now.Ticks.ToString() : idDTE;
-
-            dte.Exportaciones.Encabezado.IdentificacionDTE.TipoDTE = tipoDTE;
-            dte.Exportaciones.Encabezado.IdentificacionDTE.FechaEmision = DateTime.Now;
-            dte.Exportaciones.Encabezado.IdentificacionDTE.Folio = folio;
-
-            dte.Exportaciones.Encabezado.Emisor.Rut = configuracion.Empresa.RutEmpresa;
-            dte.Exportaciones.Encabezado.Emisor.RazonSocial = configuracion.Empresa.RazonSocial;
-            dte.Exportaciones.Encabezado.Emisor.Giro = configuracion.Empresa.Giro;
-            dte.Exportaciones.Encabezado.Emisor.DireccionOrigen = configuracion.Empresa.Direccion;
-            dte.Exportaciones.Encabezado.Emisor.ComunaOrigen = configuracion.Empresa.Comuna;
-            dte.Exportaciones.Encabezado.Emisor.ActividadEconomica = configuracion.Empresa.CodigosActividades.Select(x => x.Codigo).ToList();
-
-            //DOCUMENTO - ENCABEZADO - RECEPTOR - CAMPOS OBLIGATORIOS
-
-            dte.Exportaciones.Encabezado.Receptor.Rut = "55555555-5";
-            dte.Exportaciones.Encabezado.Receptor.RazonSocial = "Razon Social de Cliente";
-            dte.Exportaciones.Encabezado.Receptor.Direccion = "Dirección de cliente";
-            dte.Exportaciones.Encabezado.Receptor.Comuna = "Comuna de cliente";
-            dte.Exportaciones.Encabezado.Receptor.Ciudad = "Ciudad de cliente";
-            dte.Exportaciones.Encabezado.Receptor.Giro = "Giro de cliente";
-
-            dte.Exportaciones.Encabezado.Transporte = new Transporte();
-            dte.Exportaciones.Encabezado.Transporte.Aduana = new Aduana();
-
-            dte.Exportaciones.Referencias = new List<Referencia>();
-
-
-            return dte;
-        }
-
-        public void CalculateTotalesExportacion(DTEExportacion dte, double adicional = 0)
-        {
-            int total = (int)Math.Round(dte.Exportaciones.Detalles.Sum(x => x.MontoItem) + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro + adicional, 0);
-            //int total = (int)Math.Round((decimal)dte.Exportaciones.Detalles.Sum(x => x.MontoItem), 0);
-
-            dte.Exportaciones.Encabezado.Totales.MontoExento = total;
-            dte.Exportaciones.Encabezado.Totales.MontoTotal = total;
-
-            try
-            {
-                int totalOtraMoneda = (int)Math.Round((dte.Exportaciones.Detalles.Sum(x => x.MontoItem) + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete + dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro + adicional) * dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio, 0);
-                //int totalOtraMoneda = (int)Math.Round(dte.Exportaciones.Detalles.Sum(x => x.MontoItem) * dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio, 0);
-                dte.Exportaciones.Encabezado.OtraMoneda.MontoExento = totalOtraMoneda;
-                dte.Exportaciones.Encabezado.OtraMoneda.MontoTotal = totalOtraMoneda;
-            }
-            catch { }
-
-        }
-
         public void GenerateDetails(DTE dte)
         {
             //DOCUMENTO - DETALLES
@@ -198,22 +143,6 @@ namespace SIMPLEAPI_Demo
 
             //DOCUMENTO - ENCABEZADO - TOTALES - CAMPOS OBLIGATORIOS
             calculosTotales(dte);
-        }
-
-        public void GenerateDetailsExportacion(DTEExportacion dte)
-        {
-            dte.Exportaciones.Detalles = new List<DetalleExportacion>();
-            var detalle = new DetalleExportacion();
-            detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalle.Nombre = "CHATARRA DE ALUMINIO";
-            detalle.Cantidad = 148;
-            detalle.UnidadMedida = "U";
-            detalle.Precio = 105;
-            detalle.MontoItem = 148 * 105;
-            dte.Exportaciones.Detalles.Add(detalle);
-
-            CalculateTotalesExportacion(dte);
         }
 
         public void GenerateDetails(DTE dte, List<ItemBoleta> detalles)
@@ -399,8 +328,7 @@ namespace SIMPLEAPI_Demo
              * cuando antes debías ir con las facturas en papel para que te las timbraran */
             string messageOut = string.Empty;
             dte.Documento.Timbrar(
-                EnsureExists((int)dte.Documento.Encabezado.IdentificacionDTE.TipoDTE, dte.Documento.Encabezado.IdentificacionDTE.Folio, pathCaf),
-                out messageOut);
+                EnsureExists((int)dte.Documento.Encabezado.IdentificacionDTE.TipoDTE, dte.Documento.Encabezado.IdentificacionDTE.Folio, pathCaf));
 
             if (!string.IsNullOrEmpty(messageOut)) return messageOut;
             /*El documento timbrado se guarda en la variable pathResult*/
@@ -410,24 +338,6 @@ namespace SIMPLEAPI_Demo
             /*Retorna el filePath donde estará el archivo XML timbrado y firmado, listo para ser enviado al SII*/
             var resultado = dte.Firmar(configuracion.Certificado.Nombre);
             return resultado;
-        }
-
-        public string TimbrarYFirmarXMLDTEExportacion(DTEExportacion dte, string pathResult, string pathCaf)
-        {
-
-            /*En primer lugar, el documento debe timbrarse con el CAF que descargas desde el SII, es simular
-             * cuando antes debías ir con las facturas en papel para que te las timbraran */
-            string messageOut = string.Empty;
-            dte.Exportaciones.Timbrar(
-                EnsureExists((int)dte.Exportaciones.Encabezado.IdentificacionDTE.TipoDTE, dte.Exportaciones.Encabezado.IdentificacionDTE.Folio, pathCaf),
-                out messageOut);
-
-            /*El documento timbrado se guarda en la variable pathResult*/
-
-            /*Finalmente, el documento timbrado debe firmarse con el certificado digital*/
-            /*Se debe entregar en el argumento del método Firmar, el "FriendlyName" o Nombre descriptivo del certificado*/
-            /*Retorna el filePath donde estará el archivo XML timbrado y firmado, listo para ser enviado al SII*/
-            return dte.FirmarExportacion(configuracion.Certificado.Nombre);
         }
 
         public bool Validate(string filePath, SimpleAPI.Security.Firma.TipoXML tipo, string schema)
@@ -513,51 +423,6 @@ namespace SIMPLEAPI_Demo
             }
             return EnvioSII;
         }
-
-        public SimpleAPI.Models.Envios.EnvioDTE GenerarEnvioDTEExportacionToSII(List<DTEExportacion> dtes, List<string> xmlDtes)
-        {
-            var EnvioSII = new SimpleAPI.Models.Envios.EnvioDTE();
-            EnvioSII.SetDTE = new SetDTE();
-            EnvioSII.SetDTE.Id = "FENV010";
-            /*Es necesario agregar en el envío, los objetos DTE como sus respectivos XML en strings*/
-            foreach (var a in dtes)
-                EnvioSII.SetDTE.DTEs.Add(a);
-            foreach (var a in xmlDtes)
-            {
-                EnvioSII.SetDTE.dteXmls.Add(a);
-                EnvioSII.SetDTE.signedXmls.Add(a);
-            }
-
-
-            EnvioSII.SetDTE.Caratula = new SimpleAPI.Models.Envios.Caratula();
-            EnvioSII.SetDTE.Caratula.FechaEnvio = DateTime.Now;
-            /*Fecha de Resolución y Número de Resolución se averiguan en el sitio del SII según ambiente de producción o certificación*/
-            EnvioSII.SetDTE.Caratula.FechaResolucion = configuracion.Empresa.FechaResolucion;
-            EnvioSII.SetDTE.Caratula.NumeroResolucion = configuracion.Empresa.NumeroResolucion;
-
-            EnvioSII.SetDTE.Caratula.RutEmisor = configuracion.Empresa.RutEmpresa;
-            EnvioSII.SetDTE.Caratula.RutEnvia = configuracion.Certificado.Rut;
-            EnvioSII.SetDTE.Caratula.RutReceptor = "60803000-K"; //Este es el RUT del SII
-            EnvioSII.SetDTE.Caratula.SubTotalesDTE = new List<SubTotalesDTE>();
-
-            /*En la carátula del envío, se debe indicar cuantos documentos de cada tipo se están enviando*/
-
-            if (EnvioSII.SetDTE.DTEs.Any(x => !string.IsNullOrEmpty(x.Documento.Id)))
-            {
-                var tipos = EnvioSII.SetDTE.DTEs.GroupBy(x => x.Documento.Encabezado.IdentificacionDTE.TipoDTE);
-                foreach (var a in tipos)
-                {
-                    EnvioSII.SetDTE.Caratula.SubTotalesDTE.Add(new SubTotalesDTE()
-                    {
-                        Cantidad = a.Count(),
-                        TipoDTE = a.ElementAt(0).Documento.Encabezado.IdentificacionDTE.TipoDTE
-                    });
-                }
-            }
-
-            return EnvioSII;
-        }
-
         public SimpleAPI.Models.Envios.EnvioDTE GenerarEnvioCliente(DTE dte, string dteXML)
         {
             var EnvioCustomer = new SimpleAPI.Models.Envios.EnvioDTE();

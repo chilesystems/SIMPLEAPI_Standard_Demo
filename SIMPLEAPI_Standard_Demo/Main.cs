@@ -33,88 +33,88 @@ namespace SIMPLEAPI_Demo
 
         private void botonGenerarDocumento_Click(object sender, EventArgs e)
         {
-            var dte = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.FacturaExportacionElectronica, 1);
+            var dte = handler.GenerateDTE(TipoDTE.DTEType.FacturaElectronica, 150);
 
-            dte.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = CodigosAduana.FormaPagoExportacionEnum.ACRED;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoModalidadVenta = CodigosAduana.ModalidadVenta.A_FIRME;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoClausulaVenta = CodigosAduana.ClausulaCompraVenta.FOB;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TotalClausulaVenta = 285.88;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoViaTransporte = CodigosAduana.ViasdeTransporte.AEREO;
+            //dte.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = CodigosAduana.FormaPagoExportacionEnum.ACRED;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoModalidadVenta = CodigosAduana.ModalidadVenta.A_FIRME;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoClausulaVenta = CodigosAduana.ClausulaCompraVenta.FOB;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.TotalClausulaVenta = 285.88;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoViaTransporte = CodigosAduana.ViasdeTransporte.AEREO;
 
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoEmbarque = CodigosAduana.Puertos.ARICA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoDesembarque = CodigosAduana.Puertos.BUENOS_AIRES;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadMedidaTara = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoBruto = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoNeto = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CantidadBultos = 15;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos = new List<TipoBulto>();
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos.Add(new TipoBulto()
-            {
-                CantidadBultos = 15,
-                CodigoTipoBulto = CodigosAduana.TipoBultoEnum.CONTENEDOR_REFRIGERADO,
-                IdContainer = "erer787df",
-                Sello = "SelloTest"
-            });
-            dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete = 13.62;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro = 0.65;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisDestino = CodigosAduana.Paises.ARGENTINA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisReceptor = CodigosAduana.Paises.ARGENTINA;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoEmbarque = CodigosAduana.Puertos.ARICA;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoDesembarque = CodigosAduana.Puertos.BUENOS_AIRES;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadMedidaTara = CodigosAduana.UnidadMedida.U;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoBruto = CodigosAduana.UnidadMedida.U;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoNeto = CodigosAduana.UnidadMedida.U;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CantidadBultos = 15;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos = new List<TipoBulto>();
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos.Add(new TipoBulto()
+            //{
+            //    CantidadBultos = 15,
+            //    CodigoTipoBulto = CodigosAduana.TipoBultoEnum.CONTENEDOR_REFRIGERADO,
+            //    IdContainer = "erer787df",
+            //    Sello = "SelloTest"
+            //});
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete = 13.62;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro = 0.65;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisDestino = CodigosAduana.Paises.ARGENTINA;
+            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisReceptor = CodigosAduana.Paises.ARGENTINA;
 
 
-            dte.Exportaciones.Detalles = new List<DetalleExportacion>();
-            var detalle = new DetalleExportacion();
-            detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalle.Nombre = "CHATARRA DE ALUMINIO";
-            detalle.Cantidad = 148;
-            detalle.UnidadMedida = "U";
-            detalle.Precio = 105;
-            detalle.MontoItem = 148 * 105;
-            dte.Exportaciones.Detalles.Add(detalle);
+            //dte.Exportaciones.Detalles = new List<DetalleExportacion>();
+            //var detalle = new DetalleExportacion();
+            //detalle.NumeroLinea = 1;
+            //detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
+            //detalle.Nombre = "CHATARRA DE ALUMINIO";
+            //detalle.Cantidad = 148;
+            //detalle.UnidadMedida = "U";
+            //detalle.Precio = 105;
+            //detalle.MontoItem = 148 * 105;
+            //dte.Exportaciones.Detalles.Add(detalle);
 
-            dte.Exportaciones.DescuentosRecargos = new List<DescuentosRecargos>();
+            //dte.Exportaciones.DescuentosRecargos = new List<DescuentosRecargos>();
 
-            var descuentoFlete = new DescuentosRecargos();
-            descuentoFlete.Numero = 1;
-            descuentoFlete.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
-            descuentoFlete.Descripcion = "Recargo flete";
-            descuentoFlete.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
-            descuentoFlete.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            descuentoFlete.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete;
-            dte.Exportaciones.DescuentosRecargos.Add(descuentoFlete);
+            //var descuentoFlete = new DescuentosRecargos();
+            //descuentoFlete.Numero = 1;
+            //descuentoFlete.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
+            //descuentoFlete.Descripcion = "Recargo flete";
+            //descuentoFlete.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
+            //descuentoFlete.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
+            //descuentoFlete.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete;
+            //dte.Exportaciones.DescuentosRecargos.Add(descuentoFlete);
 
-            var descuentoSeguro = new DescuentosRecargos();
-            descuentoSeguro.Numero = 2;
-            descuentoSeguro.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
-            descuentoSeguro.Descripcion = "Recargo seguro";
-            descuentoSeguro.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
-            descuentoSeguro.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            descuentoSeguro.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro;
-            dte.Exportaciones.DescuentosRecargos.Add(descuentoSeguro);
+            //var descuentoSeguro = new DescuentosRecargos();
+            //descuentoSeguro.Numero = 2;
+            //descuentoSeguro.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
+            //descuentoSeguro.Descripcion = "Recargo seguro";
+            //descuentoSeguro.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
+            //descuentoSeguro.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
+            //descuentoSeguro.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro;
+            //dte.Exportaciones.DescuentosRecargos.Add(descuentoSeguro);
 
-            dte.Exportaciones.Referencias = new List<Referencia>();
-            var referenciaSetPruebas = new Referencia();
-            referenciaSetPruebas.Numero = 1;
-            referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
-            referenciaSetPruebas.FolioReferencia = dte.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
-            referenciaSetPruebas.RazonReferencia = "CASO dxsfsdf-1";
-            dte.Exportaciones.Referencias.Add(referenciaSetPruebas);
+            //dte.Exportaciones.Referencias = new List<Referencia>();
+            //var referenciaSetPruebas = new Referencia();
+            //referenciaSetPruebas.Numero = 1;
+            //referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
+            //referenciaSetPruebas.FolioReferencia = dte.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
+            //referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
+            //referenciaSetPruebas.RazonReferencia = "CASO dxsfsdf-1";
+            //dte.Exportaciones.Referencias.Add(referenciaSetPruebas);
 
-            var referenciaManifiesto = new Referencia();
-            referenciaManifiesto.Numero = 2;
-            referenciaManifiesto.TipoDocumento = TipoDTE.TipoReferencia.MIC;
-            referenciaManifiesto.FolioReferencia = "asdasd47df";
-            referenciaManifiesto.FechaDocumentoReferencia = DateTime.Now;
-            referenciaManifiesto.RazonReferencia = "MANIFIESTO INTERNACIONAL";
-            dte.Exportaciones.Referencias.Add(referenciaManifiesto);
+            //var referenciaManifiesto = new Referencia();
+            //referenciaManifiesto.Numero = 2;
+            //referenciaManifiesto.TipoDocumento = TipoDTE.TipoReferencia.MIC;
+            //referenciaManifiesto.FolioReferencia = "asdasd47df";
+            //referenciaManifiesto.FechaDocumentoReferencia = DateTime.Now;
+            //referenciaManifiesto.RazonReferencia = "MANIFIESTO INTERNACIONAL";
+            //dte.Exportaciones.Referencias.Add(referenciaManifiesto);
 
-            dte.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 681.07;
+            //dte.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
+            //dte.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
+            //dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 681.07;
 
-            handler.CalculateTotalesExportacion(dte);
-            var path = handler.TimbrarYFirmarXMLDTEExportacion(dte, "out\\temp\\", "out\\caf\\");
+            //handler.CalculateTotalesExportacion(dte);
+            var path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
 
             //handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
             MessageBox.Show("Documento generado exitosamente en " + path);
@@ -1005,418 +1005,6 @@ namespace SIMPLEAPI_Demo
 
             }
 
-        }
-
-        private void BotonSetExportacion_Click(object sender, EventArgs e)
-        {
-            var n_atencion = "1221632";
-            int folioFactura = 51;
-            int folioNC = 51;
-            int folioND = 51;
-            #region SET EXPORTACION 1
-
-            #region FACTURA EXPORTACION
-            var dte = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.FacturaExportacionElectronica, folioFactura);
-
-            dte.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = CodigosAduana.FormaPagoExportacionEnum.ACRED;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoModalidadVenta = CodigosAduana.ModalidadVenta.A_FIRME;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoClausulaVenta = CodigosAduana.ClausulaCompraVenta.FOB;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TotalClausulaVenta = 285.88;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoViaTransporte = CodigosAduana.ViasdeTransporte.AEREO;
-
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoEmbarque = CodigosAduana.Puertos.ARICA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoDesembarque = CodigosAduana.Puertos.BUENOS_AIRES;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadMedidaTara = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoBruto = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoNeto = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CantidadBultos = 15;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos = new List<TipoBulto>();
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos.Add(new TipoBulto()
-            {
-                CantidadBultos = 15,
-                CodigoTipoBulto = CodigosAduana.TipoBultoEnum.CONTENEDOR_REFRIGERADO,
-                IdContainer = "erer787df",
-                Sello = "SelloTest"
-            });
-            dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete = 13.62;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro = 0.65;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisDestino = CodigosAduana.Paises.ARGENTINA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisReceptor = CodigosAduana.Paises.ARGENTINA;
-
-
-            dte.Exportaciones.Detalles = new List<DetalleExportacion>();
-            var detalle = new DetalleExportacion();
-            detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalle.Nombre = "CHATARRA DE ALUMINIO";
-            detalle.Cantidad = 148;
-            detalle.UnidadMedida = "U";
-            detalle.Precio = 105;
-            detalle.MontoItem = 148 * 105;
-            dte.Exportaciones.Detalles.Add(detalle);
-
-            dte.Exportaciones.DescuentosRecargos = new List<DescuentosRecargos>();
-
-            var descuentoFlete = new DescuentosRecargos();
-            descuentoFlete.Numero = 1;
-            descuentoFlete.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
-            descuentoFlete.Descripcion = "Recargo flete";
-            descuentoFlete.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
-            descuentoFlete.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            descuentoFlete.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete;
-            dte.Exportaciones.DescuentosRecargos.Add(descuentoFlete);
-
-            var descuentoSeguro = new DescuentosRecargos();
-            descuentoSeguro.Numero = 2;
-            descuentoSeguro.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
-            descuentoSeguro.Descripcion = "Recargo seguro";
-            descuentoSeguro.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
-            descuentoSeguro.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            descuentoSeguro.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro;
-            dte.Exportaciones.DescuentosRecargos.Add(descuentoSeguro);
-
-            dte.Exportaciones.Referencias = new List<Referencia>();
-            var referenciaSetPruebas = new Referencia();
-            referenciaSetPruebas.Numero = 1;
-            referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
-            referenciaSetPruebas.FolioReferencia = dte.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
-            referenciaSetPruebas.RazonReferencia = "CASO " + n_atencion + "-1";
-            dte.Exportaciones.Referencias.Add(referenciaSetPruebas);
-
-            var referenciaManifiesto = new Referencia();
-            referenciaManifiesto.Numero = 2;
-            referenciaManifiesto.TipoDocumento = TipoDTE.TipoReferencia.MIC;
-            referenciaManifiesto.FolioReferencia = "asdasd47df";
-            referenciaManifiesto.FechaDocumentoReferencia = DateTime.Now;
-            referenciaManifiesto.RazonReferencia = "MANIFIESTO INTERNACIONAL";
-            dte.Exportaciones.Referencias.Add(referenciaManifiesto);
-
-            dte.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 681.07;
-
-            handler.CalculateTotalesExportacion(dte);
-            var path = handler.TimbrarYFirmarXMLDTEExportacion(dte, "out\\temp\\", "out\\caf\\");
-
-            handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
-            MessageBox.Show("Documento generado exitosamente en " + path);
-            #endregion
-
-            #region NOTA CREDITO EXPORTACION
-            var dteNC = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.NotaCreditoExportacionElectronica, folioNC);
-            dteNC.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = dte.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion;
-            dteNC.Exportaciones.Encabezado.Transporte.Aduana = dte.Exportaciones.Encabezado.Transporte.Aduana;
-            dteNC.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete = 0;
-            dteNC.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro = 0;
-            dteNC.Exportaciones.Encabezado.Transporte.Aduana.CantidadBultos = 0;
-
-            dteNC.Exportaciones.Detalles = new List<DetalleExportacion>();
-            var detalleNC = new DetalleExportacion();
-            detalleNC.NumeroLinea = 1;
-            detalleNC.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalleNC.Nombre = detalle.Nombre;
-            detalleNC.Cantidad = 49;
-            detalleNC.UnidadMedida = detalle.UnidadMedida;
-            detalleNC.Precio = detalle.Precio;
-            detalleNC.MontoItem = (int)Math.Round(detalleNC.Cantidad * detalleNC.Precio, 0);
-            dteNC.Exportaciones.Detalles.Add(detalleNC);
-
-            dteNC.Exportaciones.Referencias = new List<Referencia>();
-            referenciaSetPruebas = new Referencia();
-            referenciaSetPruebas.Numero = 1;
-            referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
-            referenciaSetPruebas.FolioReferencia = dteNC.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
-            referenciaSetPruebas.RazonReferencia = "CASO " + n_atencion + "-2";
-            dteNC.Exportaciones.Referencias.Add(referenciaSetPruebas);
-
-            var referenciaNC = new Referencia();
-            referenciaNC.Numero = 2;
-            referenciaNC.CodigoReferencia = TipoReferencia.TipoReferenciaEnum.CorrigeMontos;
-            referenciaNC.TipoDocumento = TipoDTE.TipoReferencia.FacturaExportacionElectronica;
-            referenciaNC.FolioReferencia = dte.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaNC.FechaDocumentoReferencia = DateTime.Now;
-            referenciaNC.RazonReferencia = "ANULACION DE FACTURA DE EXPORTACIÓN";
-            dteNC.Exportaciones.Referencias.Add(referenciaNC);
-
-            dteNC.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
-            dteNC.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
-            dteNC.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 681.07;
-            handler.CalculateTotalesExportacion(dteNC);
-            var pathNC = handler.TimbrarYFirmarXMLDTEExportacion(dteNC, "out\\temp\\", "out\\caf\\");
-
-            handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
-            MessageBox.Show("NC generada exitosamente en " + pathNC);
-            #endregion
-
-            #region NOTA DEBITO EXPORTACION
-            var dteND = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.NotaDebitoExportacionElectronica, folioND);
-            dteND.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = dteNC.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion;
-            dteND.Exportaciones.Encabezado.Transporte.Aduana = dteNC.Exportaciones.Encabezado.Transporte.Aduana;
-
-            dteND.Exportaciones.Detalles = new List<DetalleExportacion>();
-            var detalleND = detalleNC;
-            dteND.Exportaciones.Detalles.Add(detalleND);
-
-            dteND.Exportaciones.Referencias = new List<Referencia>();
-            referenciaSetPruebas = new Referencia();
-            referenciaSetPruebas.Numero = 1;
-            referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
-            referenciaSetPruebas.FolioReferencia = dteNC.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
-            referenciaSetPruebas.RazonReferencia = "CASO " + n_atencion + "-3";
-            dteND.Exportaciones.Referencias.Add(referenciaSetPruebas);
-
-            var referenciaND = new Referencia();
-            referenciaND.Numero = 2;
-            referenciaND.CodigoReferencia = TipoReferencia.TipoReferenciaEnum.AnulaDocumentoReferencia;
-            referenciaND.TipoDocumento = TipoDTE.TipoReferencia.NotaCreditoExportacionElectronica;
-            referenciaND.FolioReferencia = dteNC.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaND.FechaDocumentoReferencia = DateTime.Now;
-            referenciaNC.RazonReferencia = "ANULACION NOTA DE CREDITO DE EXPORTACION";
-            dteND.Exportaciones.Referencias.Add(referenciaND);
-
-            dteND.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
-            dteND.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
-            dteND.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 681.07;
-            handler.CalculateTotalesExportacion(dteND);
-            var pathND = handler.TimbrarYFirmarXMLDTEExportacion(dteND, "out\\temp\\", "out\\caf\\");
-
-            handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
-            MessageBox.Show("NC generada exitosamente en " + pathND);
-            #endregion
-            #endregion
-
-        }
-
-        private void BotonSetExportacion2_Click(object sender, EventArgs e)
-        {
-            var n_atencion = "1221633";
-            int folioFactura = 58;
-            #region SET EXPORTACION 1
-
-            #region FACTURA EXPORTACION 1
-            var dte = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.FacturaExportacionElectronica, folioFactura);
-            dte.Exportaciones.Encabezado.IdentificacionDTE.IndicadorServicio = IndicadorServicio.IndicadorServicioEnum.FacturaServicios2;
-            dte.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = CodigosAduana.FormaPagoExportacionEnum.ACRED;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoClausulaVenta = CodigosAduana.ClausulaCompraVenta.FOB;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoViaTransporte = CodigosAduana.ViasdeTransporte.AEREO;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoEmbarque = CodigosAduana.Puertos.ARICA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoDesembarque = CodigosAduana.Puertos.BUENOS_AIRES;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisDestino = CodigosAduana.Paises.ARGENTINA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisReceptor = CodigosAduana.Paises.ARGENTINA;
-
-
-            dte.Exportaciones.Detalles = new List<DetalleExportacion>();
-            var detalle = new DetalleExportacion();
-            detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalle.Nombre = "ASESORIAS Y PROYECTOS PROFESIONALES";
-            detalle.Cantidad = 1;
-            detalle.Precio = 19;
-            detalle.Recargo = 2;
-            detalle.RecargoPorcentaje = 10;
-            detalle.MontoItem = 19 + 2; //26*1 + 10%            
-            dte.Exportaciones.Detalles.Add(detalle);
-
-            dte.Exportaciones.Referencias = new List<Referencia>();
-            var referenciaSetPruebas = new Referencia();
-            referenciaSetPruebas.Numero = 1;
-            referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
-            referenciaSetPruebas.FolioReferencia = dte.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
-            referenciaSetPruebas.RazonReferencia = "CASO " + n_atencion + "-1";
-            dte.Exportaciones.Referencias.Add(referenciaSetPruebas);
-
-            var referenciaManifiesto = new Referencia();
-            referenciaManifiesto.Numero = 2;
-            referenciaManifiesto.TipoDocumento = TipoDTE.TipoReferencia.ResolucionSNA;
-            referenciaManifiesto.FolioReferencia = "erere4f7d54";
-            referenciaManifiesto.FechaDocumentoReferencia = DateTime.Now;
-            referenciaManifiesto.RazonReferencia = "RESOLUCION SNA";
-            dte.Exportaciones.Referencias.Add(referenciaManifiesto);
-
-            dte.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 700;
-
-            handler.CalculateTotalesExportacion(dte);
-            var path = handler.TimbrarYFirmarXMLDTEExportacion(dte, "out\\temp\\", "out\\caf\\");
-
-            handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
-            MessageBox.Show("Documento generado exitosamente en " + path);
-            #endregion
-
-            folioFactura++;
-            #region FACTURA EXPORTACION 2
-            dte = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.FacturaExportacionElectronica, folioFactura);
-            dte.Exportaciones.Encabezado.IdentificacionDTE.FormaPagoExportacion = CodigosAduana.FormaPagoExportacionEnum.ACRED;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoModalidadVenta = CodigosAduana.ModalidadVenta.A_FIRME;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoClausulaVenta = CodigosAduana.ClausulaCompraVenta.FOB;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TotalClausulaVenta = 1138.3;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoViaTransporte = CodigosAduana.ViasdeTransporte.AEREO;
-
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoEmbarque = CodigosAduana.Puertos.ARICA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPuertoDesembarque = CodigosAduana.Puertos.BUENOS_AIRES;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadMedidaTara = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoBruto = CodigosAduana.UnidadMedida.U;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoUnidadPesoNeto = CodigosAduana.UnidadMedida.KN;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CantidadBultos = 29;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos = new List<TipoBulto>();
-            dte.Exportaciones.Encabezado.Transporte.Aduana.TipoBultos.Add(new TipoBulto()
-            {
-                CantidadBultos = 29,
-                CodigoTipoBulto = CodigosAduana.TipoBultoEnum.CONTENEDOR_REFRIGERADO,
-                Marcas = "MARCA CHANCHO",
-                IdContainer = "erer787df1",
-                Sello = "SelloTest2"
-            });
-            dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete = 215.95;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro = 40.97;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisDestino = CodigosAduana.Paises.ARGENTINA;
-            dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoPaisReceptor = CodigosAduana.Paises.ARGENTINA;
-
-
-            dte.Exportaciones.Detalles = new List<DetalleExportacion>();
-            detalle = new DetalleExportacion();
-            detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalle.Nombre = "CAJAS CIRUELAS TIERNIZADAS SIN CAROZO CALIBRE 60/70";
-            detalle.Cantidad = 290;
-            detalle.UnidadMedida = "KN";
-            detalle.Precio = 119;
-            detalle.DescuentoPorcentaje = 5;
-            var descuentoReal = detalle.Cantidad * detalle.Precio * 0.05;
-            detalle.Descuento = (int)Math.Round(descuentoReal, 0, MidpointRounding.AwayFromZero);
-            detalle.MontoItem = (int)Math.Round((detalle.Cantidad * detalle.Precio) - descuentoReal, 0, MidpointRounding.AwayFromZero);
-            dte.Exportaciones.Detalles.Add(detalle);
-
-            detalle = new DetalleExportacion();
-            detalle.NumeroLinea = 2;
-            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalle.Nombre = "CAJAS DE PASAS DE UVA FLAME MORENA SIN SEMILLA MEDIANAS";
-            detalle.Cantidad = 169;
-            detalle.UnidadMedida = "KN";
-            detalle.Precio = 67;
-            detalle.MontoItem = (int)Math.Round(detalle.Cantidad * detalle.Precio, 0);
-            dte.Exportaciones.Detalles.Add(detalle);
-
-            dte.Exportaciones.DescuentosRecargos = new List<DescuentosRecargos>();
-
-            var comisionExtranjero = new DescuentosRecargos();
-            comisionExtranjero.Numero = 1;
-            comisionExtranjero.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
-            comisionExtranjero.Descripcion = "COMISIONES EN EL EXTRANJERO";
-            comisionExtranjero.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
-            comisionExtranjero.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            comisionExtranjero.Valor = 125.21;
-            dte.Exportaciones.DescuentosRecargos.Add(comisionExtranjero);
-
-            var descuentoFlete = new DescuentosRecargos();
-            descuentoFlete.Numero = 2;
-            descuentoFlete.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
-            descuentoFlete.Descripcion = "Recargo flete";
-            descuentoFlete.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
-            descuentoFlete.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            descuentoFlete.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoFlete;
-            dte.Exportaciones.DescuentosRecargos.Add(descuentoFlete);
-
-            var descuentoSeguro = new DescuentosRecargos();
-            descuentoSeguro.Numero = 3;
-            descuentoSeguro.TipoMovimiento = TipoMovimiento.TipoMovimientoEnum.Recargo;
-            descuentoSeguro.Descripcion = "Recargo seguro";
-            descuentoSeguro.TipoValor = ExpresionDinero.ExpresionDineroEnum.Pesos;
-            descuentoSeguro.IndicadorExento = IndicadorExento.IndicadorExentoEnum.Exento;
-            descuentoSeguro.Valor = dte.Exportaciones.Encabezado.Transporte.Aduana.MontoSeguro;
-            dte.Exportaciones.DescuentosRecargos.Add(descuentoSeguro);
-
-            dte.Exportaciones.Referencias = new List<Referencia>();
-            referenciaSetPruebas = new Referencia();
-            referenciaSetPruebas.Numero = 1;
-            referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
-            referenciaSetPruebas.FolioReferencia = dte.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
-            referenciaSetPruebas.RazonReferencia = "CASO " + n_atencion + "-2";
-            dte.Exportaciones.Referencias.Add(referenciaSetPruebas);
-
-            var referenciaDUS = new Referencia();
-            referenciaDUS.Numero = 2;
-            referenciaDUS.TipoDocumento = TipoDTE.TipoReferencia.DUS;
-            referenciaDUS.FolioReferencia = "343fdf47";
-            referenciaDUS.FechaDocumentoReferencia = DateTime.Now;
-            referenciaDUS.RazonReferencia = "DUS";
-            dte.Exportaciones.Referencias.Add(referenciaDUS);
-
-            var referenciaAWB = new Referencia();
-            referenciaAWB.Numero = 3;
-            referenciaAWB.TipoDocumento = TipoDTE.TipoReferencia.AWB;
-            referenciaAWB.FolioReferencia = "FDD7741E";
-            referenciaAWB.FechaDocumentoReferencia = DateTime.Now;
-            referenciaAWB.RazonReferencia = "AWB";
-            dte.Exportaciones.Referencias.Add(referenciaAWB);
-
-            dte.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 700;
-
-            handler.CalculateTotalesExportacion(dte, comisionExtranjero.Valor);
-
-            path = handler.TimbrarYFirmarXMLDTEExportacion(dte, "out\\temp\\", "out\\caf\\");
-
-            handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
-            MessageBox.Show("Documento generado exitosamente en " + path);
-            #endregion
-
-            folioFactura++;
-            #region FACTURA EXPORTACION 3
-            dte = handler.GenerateDTEExportacionBase(TipoDTE.DTEType.FacturaExportacionElectronica, folioFactura);
-            dte.Exportaciones.Encabezado.Receptor.Extranjero = new Extranjero()
-            {
-                Nacionalidad = CodigosAduana.Paises.ARGENTINA
-            };
-            dte.Exportaciones.Encabezado.IdentificacionDTE.IndicadorServicio = IndicadorServicio.IndicadorServicioEnum.ServiciosHoteleria2;
-            //dato obligatorio
-            //dte.Exportaciones.Encabezado.Transporte.Aduana.CodigoModalidadVenta = CodigosAduana.ModalidadVenta.A_FIRME;
-
-            dte.Exportaciones.Detalles = new List<DetalleExportacion>();
-            detalle = new DetalleExportacion();
-            detalle.NumeroLinea = 1;
-            detalle.IndicadorExento = IndicadorFacturacionExencionEnum.NoAfectoOExento;
-            detalle.Nombre = "ALOJAMIENTO HABITACIONES";
-            detalle.Cantidad = 1;
-            detalle.Precio = 57;
-            detalle.MontoItem = 57;
-            dte.Exportaciones.Detalles.Add(detalle);
-
-            dte.Exportaciones.Referencias = new List<Referencia>();
-            referenciaSetPruebas = new Referencia();
-            referenciaSetPruebas.Numero = 1;
-            referenciaSetPruebas.TipoDocumento = TipoDTE.TipoReferencia.SetPruebas;
-            referenciaSetPruebas.FolioReferencia = dte.Exportaciones.Encabezado.IdentificacionDTE.Folio.ToString();
-            referenciaSetPruebas.FechaDocumentoReferencia = DateTime.Now;
-            referenciaSetPruebas.RazonReferencia = "CASO " + n_atencion + "-3";
-            dte.Exportaciones.Referencias.Add(referenciaSetPruebas);
-
-            referenciaAWB = new Referencia();
-            referenciaAWB.Numero = 2;
-            referenciaAWB.TipoDocumento = TipoDTE.TipoReferencia.AWB;
-            referenciaAWB.FolioReferencia = "eer774df";
-            referenciaAWB.FechaDocumentoReferencia = DateTime.Now;
-            referenciaAWB.RazonReferencia = "AWB";
-            dte.Exportaciones.Referencias.Add(referenciaAWB);
-
-            dte.Exportaciones.Encabezado.Totales.TipoMoneda = CodigosAduana.Moneda.DOLAR_ESTADOUNIDENSE;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoMoneda = CodigosAduana.Moneda.PESO_CHILENO;
-            dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 700;
-
-            handler.CalculateTotalesExportacion(dte);
-            path = handler.TimbrarYFirmarXMLDTEExportacion(dte, "out\\temp\\", "out\\caf\\");
-
-            handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
-            MessageBox.Show("Documento generado exitosamente en " + path);
-            #endregion
-            #endregion
         }
 
         private void botonLibroGuias_Click(object sender, EventArgs e)

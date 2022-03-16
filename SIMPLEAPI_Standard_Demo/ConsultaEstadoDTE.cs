@@ -24,7 +24,7 @@ namespace SIMPLEAPI_Demo
             if (checkIsBoletaCertificacion.Checked || !(tipoDTE == TipoDTE.DTEType.BoletaElectronica || tipoDTE == TipoDTE.DTEType.BoletaElectronicaExenta))
             {
                 var responseEstadoDTE = await handler.ConsultarEstadoDTEAsync(radioProduccion.Checked ? AmbienteEnum.Produccion : AmbienteEnum.Certificacion, $"{textRUTReceptor.Text}-{textDVReceptor.Text}", tipoDTE, folio, dateFechaEmision.Value.Date, total);
-                textRespuesta.Text = responseEstadoDTE.Response;
+                textRespuesta.Text = responseEstadoDTE.ResponseXml;
             }
             else
             {
