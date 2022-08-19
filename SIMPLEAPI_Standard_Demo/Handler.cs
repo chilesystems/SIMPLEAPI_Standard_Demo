@@ -459,7 +459,7 @@ namespace SIMPLEAPI_Demo
                 EnvioDTEResult responseEnvio = new EnvioDTEResult();
 
                 if (nuevaBoleta) responseEnvio = await SimpleAPI.WS.Envio.EnvioBoleta.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
-                else responseEnvio = await SimpleAPI.WS.Envio.EnvioDTE.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat");
+                else responseEnvio = await SimpleAPI.WS.Envio.EnvioDTE.EnviarAsync(configuracion.Certificado.Rut, configuracion.Empresa.RutEmpresa, filePathEnvio, configuracion.Certificado.Nombre, ambiente, ".\\out\\tkn.dat", "");
 
                 if (responseEnvio != null && responseEnvio.TrackId > 0)
                 {
@@ -1404,7 +1404,7 @@ namespace SIMPLEAPI_Demo
 
             result.RecepcionEnvio.Add(recepcionEnvio);
 
-            var filepath = response.Firmar(configuracion.Certificado.Nombre);
+            var filepath = response.Firmar(configuracion.Certificado.Nombre, "");
 
             return filepath;
         }
@@ -1447,7 +1447,7 @@ namespace SIMPLEAPI_Demo
 
                 result.ResultadoDTE.Add(resultadoDTE);
 
-                string resultFilePath = response.Firmar(configuracion.Certificado.Nombre);
+                string resultFilePath = response.Firmar(configuracion.Certificado.Nombre, "");
                 return resultFilePath;
             }
             catch (Exception ex)
@@ -1494,7 +1494,7 @@ namespace SIMPLEAPI_Demo
 
                 result.ResultadoDTE.Add(resultadoDTE);
 
-                string resultFilePath = response.Firmar(configuracion.Certificado.Nombre);
+                string resultFilePath = response.Firmar(configuracion.Certificado.Nombre, "");
                 return resultFilePath;
             }
             catch (Exception ex)
