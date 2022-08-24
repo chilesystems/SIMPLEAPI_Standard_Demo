@@ -114,6 +114,7 @@ namespace SIMPLEAPI_Demo
             //dte.Exportaciones.Encabezado.OtraMoneda.TipoCambio = 681.07;
 
             //handler.CalculateTotalesExportacion(dte);
+            handler.GenerateDetails(dte);
             var path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");
 
             //handler.Validate(path, Firma.TipoXML.DTE, SimpleAPI.XML.Schemas.DTE);
