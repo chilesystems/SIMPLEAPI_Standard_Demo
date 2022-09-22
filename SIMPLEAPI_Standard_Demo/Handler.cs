@@ -345,7 +345,7 @@ namespace SIMPLEAPI_Demo
         {
             string messageResult = string.Empty;
             if (SimpleAPI.XML.XmlHandler.ValidateWithSchema(filePath, out messageResult, schema))
-                if (SimpleAPI.Security.Firma.VerificarFirma(filePath, tipo, out string messageOutFirma))
+                if (SimpleAPI.Security.Firma.VerificarFirmaFromPath(filePath, tipo, out string messageOutFirma))
                     return true;
                 else
                     MessageBox.Show("Error al validar firma electrónica: " + messageResult + "", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -23,7 +23,7 @@ namespace SIMPLEAPI_Demo
             string xml = File.ReadAllText(pathFile, Encoding.GetEncoding("ISO-8859-1"));
 
             var dte = XmlHandler.DeserializeFromString<DTE>(xml);
-            using (var ms = new MemoryStream(dte.Documento.TimbrePDF417(out string outMessage,"")))
+            using (var ms = new MemoryStream(dte.Documento.TimbrePDF417(out string outMessage)))
             {
                 pictureBoxTimbre.BackgroundImage = Image.FromStream(ms);
             }

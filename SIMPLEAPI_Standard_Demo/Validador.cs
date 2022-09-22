@@ -69,7 +69,7 @@ namespace SIMPLEAPI_Demo
                     string messageResultFirma = string.Empty;
                     if (SimpleAPI.XML.XmlHandler.ValidateWithSchema(openFileDialog1.FileName, out messageResultSchema, tipoSchema))
                     {
-                        if (Firma.VerificarFirma(openFileDialog1.FileName, tipoFirma, out messageResultFirma))
+                        if (Firma.VerificarFirmaFromPath(openFileDialog1.FileName, tipoFirma, out messageResultFirma))
                         {
                             textResultado.Text = "SCHEMA CORRECTO." + Environment.NewLine + " FIRMA CORRECTA.";
                         }
