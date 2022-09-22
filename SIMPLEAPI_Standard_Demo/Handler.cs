@@ -34,6 +34,7 @@ namespace SIMPLEAPI_Demo
         {
             // DOCUMENTO
             var dte = new DTE();
+            dte.Documento = new Documento();
             //
             // DOCUMENTO - ENCABEZADO - CAMPO OBLIGATORIO               
             dte.Documento.Id = "DTE_" + DateTime.Now.Ticks.ToString();
