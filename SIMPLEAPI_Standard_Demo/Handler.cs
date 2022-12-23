@@ -285,11 +285,11 @@ namespace SIMPLEAPI_Demo
         /// <param name="fechaDocReferencia">Fecha del documento de referencia. NO de cuándo se genera la referencia.</param>
         /// <param name="folioReferencia">Folio del documento de referencia.</param>
         /// <param name="casoPrueba">N° de caso de prueba</param>        
-        public void Referencias(DTE dte, TipoReferencia.TipoReferenciaEnum operacionReferencia, TipoDTE.TipoReferencia tipoDocumentoReferencia, DateTime? fechaDocReferencia, int? folioReferencia = 0, string casoPrueba = "")
+        public void Referencias(DTE dte, TipoReferencia.TipoReferenciaEnum operacionReferencia, int tipoDocumentoReferencia, DateTime? fechaDocReferencia, int? folioReferencia = 0, string casoPrueba = "")
         {
             if (operacionReferencia == TipoReferencia.TipoReferenciaEnum.SetPruebas)  //REFERENCIA A SET DE PRUEBAS
             {
-                if (tipoDocumentoReferencia == TipoDTE.TipoReferencia.BoletaElectronica || tipoDocumentoReferencia == TipoDTE.TipoReferencia.BoletaExentaElectronica)
+                if (tipoDocumentoReferencia == 39 || tipoDocumentoReferencia == 41)
                 {
                     dte.Documento.Referencias.Add(new Referencia()
                     {
@@ -306,7 +306,7 @@ namespace SIMPLEAPI_Demo
                         FolioReferencia = folioReferencia.ToString(),
                         Numero = dte.Documento.Referencias.Count + 1,
                         RazonReferencia = casoPrueba,
-                        TipoDocumento = TipoDTE.TipoReferencia.SetPruebas
+                        TipoDocumento = tipoDocumentoReferencia.ToString()
                     });
                 }
             }
@@ -315,11 +315,11 @@ namespace SIMPLEAPI_Demo
                 dte.Documento.Referencias.Add(new Referencia()
                 {
                     CodigoReferencia = operacionReferencia,
-                    FechaDocumentoReferencia = fechaDocReferencia.Value,
+                    FechaDocumentoReferencia = tipoDocumentoReferencia == 39 || tipoDocumentoReferencia == 41 ? DateTime.MinValue : fechaDocReferencia.Value,
                     FolioReferencia = folioReferencia.ToString(),
                     Numero = dte.Documento.Referencias.Count + 1,
                     RazonReferencia = operacionReferencia == TipoReferencia.TipoReferenciaEnum.AnulaDocumentoReferencia ? "ANULA" : "CORRIGE" + " DOCUMENTO N° " + folioReferencia.ToString(),
-                    TipoDocumento = tipoDocumentoReferencia
+                    TipoDocumento = tipoDocumentoReferencia.ToString()
                 });
             }
         }
@@ -1215,7 +1215,7 @@ namespace SIMPLEAPI_Demo
                     IndicadorGlobal = 0,
                     Numero = 1,
                     RazonReferencia = "CORRIGE MONTOS",
-                    TipoDocumento = TipoDTE.TipoReferencia.FacturaElectronica
+                    TipoDocumento = "33"
                 });
                 dte.Documento.Detalles.Add(new SimpleAPI.Models.DTE.Detalle()
                 {
@@ -1237,7 +1237,7 @@ namespace SIMPLEAPI_Demo
                     IndicadorGlobal = 0,
                     Numero = 1,
                     RazonReferencia = "RECARGO DE INTERESES",
-                    TipoDocumento = TipoDTE.TipoReferencia.FacturaElectronica
+                    TipoDocumento = "33"
                 });
                 dte.Documento.Detalles.Add(new SimpleAPI.Models.DTE.Detalle()
                 {

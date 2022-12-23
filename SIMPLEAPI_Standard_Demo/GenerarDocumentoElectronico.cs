@@ -111,7 +111,7 @@ namespace SIMPLEAPI_Demo
             if (checkSetPruebas.Checked)
             {
                 string casoPrueba = "CASO-" + numericCasoPrueba.Value.ToString("N0");
-                handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, tipoDte == TipoDTE.DTEType.BoletaElectronica ? TipoDTE.TipoReferencia.BoletaElectronica : TipoDTE.TipoReferencia.FacturaElectronica, null, 0, casoPrueba);
+                handler.Referencias(dte, TipoReferencia.TipoReferenciaEnum.SetPruebas, tipoDte == TipoDTE.DTEType.BoletaElectronica ? 39 : 33, null, 0, casoPrueba);
             }
 
             var path = handler.TimbrarYFirmarXMLDTE(dte, "out\\temp\\", "out\\caf\\");

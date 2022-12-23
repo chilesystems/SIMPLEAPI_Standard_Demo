@@ -35,12 +35,6 @@
             this.botonTimbre = new System.Windows.Forms.Button();
             this.botonAceptacion = new System.Windows.Forms.Button();
             this.botonConsultarEstadoDTE = new System.Windows.Forms.Button();
-            this.botonMuestraImpresa = new System.Windows.Forms.Button();
-            this.botonLibroGuias = new System.Windows.Forms.Button();
-            this.botonSimulacion = new System.Windows.Forms.Button();
-            this.botonCesion = new System.Windows.Forms.Button();
-            this.botonIntercambio = new System.Windows.Forms.Button();
-            this.botonSetPruebas = new System.Windows.Forms.Button();
             this.radioProduccion = new System.Windows.Forms.RadioButton();
             this.radioCertificacion = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -59,14 +53,11 @@
             this.botonIngresarTimbraje = new System.Windows.Forms.Button();
             this.botonEnviarSii = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.botonFacturaCompra = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.botonConfiguracion = new System.Windows.Forms.Button();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,7 +69,7 @@
             this.groupBox5.Controls.Add(this.botonTimbre);
             this.groupBox5.Controls.Add(this.botonAceptacion);
             this.groupBox5.Controls.Add(this.botonConsultarEstadoDTE);
-            this.groupBox5.Location = new System.Drawing.Point(519, 12);
+            this.groupBox5.Location = new System.Drawing.Point(350, 12);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(163, 197);
             this.groupBox5.TabIndex = 16;
@@ -144,66 +135,6 @@
             this.botonConsultarEstadoDTE.UseVisualStyleBackColor = true;
             this.botonConsultarEstadoDTE.Click += new System.EventHandler(this.botonConsultarEstadoDTE_Click);
             // 
-            // botonMuestraImpresa
-            // 
-            this.botonMuestraImpresa.Location = new System.Drawing.Point(6, 193);
-            this.botonMuestraImpresa.Name = "botonMuestraImpresa";
-            this.botonMuestraImpresa.Size = new System.Drawing.Size(151, 23);
-            this.botonMuestraImpresa.TabIndex = 19;
-            this.botonMuestraImpresa.Text = "Muestra Impresa";
-            this.botonMuestraImpresa.UseVisualStyleBackColor = true;
-            this.botonMuestraImpresa.Click += new System.EventHandler(this.botonMuestraImpresa_Click);
-            // 
-            // botonLibroGuias
-            // 
-            this.botonLibroGuias.Location = new System.Drawing.Point(6, 164);
-            this.botonLibroGuias.Name = "botonLibroGuias";
-            this.botonLibroGuias.Size = new System.Drawing.Size(151, 23);
-            this.botonLibroGuias.TabIndex = 18;
-            this.botonLibroGuias.Text = "Libro de Guías";
-            this.botonLibroGuias.UseVisualStyleBackColor = true;
-            this.botonLibroGuias.Click += new System.EventHandler(this.botonLibroGuias_Click);
-            // 
-            // botonSimulacion
-            // 
-            this.botonSimulacion.Location = new System.Drawing.Point(6, 77);
-            this.botonSimulacion.Name = "botonSimulacion";
-            this.botonSimulacion.Size = new System.Drawing.Size(151, 23);
-            this.botonSimulacion.TabIndex = 10;
-            this.botonSimulacion.Text = "Simular N Documentos";
-            this.botonSimulacion.UseVisualStyleBackColor = true;
-            this.botonSimulacion.Click += new System.EventHandler(this.botonSimulacion_Click);
-            // 
-            // botonCesion
-            // 
-            this.botonCesion.Location = new System.Drawing.Point(6, 135);
-            this.botonCesion.Name = "botonCesion";
-            this.botonCesion.Size = new System.Drawing.Size(151, 23);
-            this.botonCesion.TabIndex = 19;
-            this.botonCesion.Text = "Cesión de Documentos";
-            this.botonCesion.UseVisualStyleBackColor = true;
-            this.botonCesion.Click += new System.EventHandler(this.botonCesion_Click);
-            // 
-            // botonIntercambio
-            // 
-            this.botonIntercambio.Location = new System.Drawing.Point(6, 105);
-            this.botonIntercambio.Name = "botonIntercambio";
-            this.botonIntercambio.Size = new System.Drawing.Size(151, 23);
-            this.botonIntercambio.TabIndex = 18;
-            this.botonIntercambio.Text = "Intercambio";
-            this.botonIntercambio.UseVisualStyleBackColor = true;
-            this.botonIntercambio.Click += new System.EventHandler(this.botonIntercambio_Click);
-            // 
-            // botonSetPruebas
-            // 
-            this.botonSetPruebas.Location = new System.Drawing.Point(6, 19);
-            this.botonSetPruebas.Name = "botonSetPruebas";
-            this.botonSetPruebas.Size = new System.Drawing.Size(151, 23);
-            this.botonSetPruebas.TabIndex = 18;
-            this.botonSetPruebas.Text = "SET de Pruebas";
-            this.botonSetPruebas.UseVisualStyleBackColor = true;
-            this.botonSetPruebas.Click += new System.EventHandler(this.botonSetPruebas_Click);
-            // 
             // radioProduccion
             // 
             this.radioProduccion.AutoSize = true;
@@ -236,7 +167,7 @@
             this.groupBox2.Controls.Add(this.botonAnularDocumento);
             this.groupBox2.Controls.Add(this.botonGenerarRCOF);
             this.groupBox2.Controls.Add(this.botonGenerarBoleta);
-            this.groupBox2.Location = new System.Drawing.Point(350, 12);
+            this.groupBox2.Location = new System.Drawing.Point(181, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(163, 279);
             this.groupBox2.TabIndex = 13;
@@ -390,32 +321,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.botonFacturaCompra);
-            this.groupBox3.Controls.Add(this.botonMuestraImpresa);
-            this.groupBox3.Controls.Add(this.botonSetPruebas);
-            this.groupBox3.Controls.Add(this.botonLibroGuias);
-            this.groupBox3.Controls.Add(this.botonIntercambio);
-            this.groupBox3.Controls.Add(this.botonCesion);
-            this.groupBox3.Controls.Add(this.botonSimulacion);
-            this.groupBox3.Location = new System.Drawing.Point(181, 12);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(163, 235);
-            this.groupBox3.TabIndex = 21;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Certificación";
-            // 
-            // botonFacturaCompra
-            // 
-            this.botonFacturaCompra.Location = new System.Drawing.Point(6, 48);
-            this.botonFacturaCompra.Name = "botonFacturaCompra";
-            this.botonFacturaCompra.Size = new System.Drawing.Size(151, 23);
-            this.botonFacturaCompra.TabIndex = 21;
-            this.botonFacturaCompra.Text = "Factura de Compra";
-            this.botonFacturaCompra.UseVisualStyleBackColor = true;
-            this.botonFacturaCompra.Click += new System.EventHandler(this.botonFacturaCompra_Click);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.radioCertificacion);
@@ -442,10 +347,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(693, 299);
+            this.ClientSize = new System.Drawing.Size(524, 299);
             this.Controls.Add(this.botonConfiguracion);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -457,7 +361,6 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
@@ -469,7 +372,6 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button botonTimbre;
         private System.Windows.Forms.Button botonAceptacion;
-        private System.Windows.Forms.Button botonSimulacion;
         private System.Windows.Forms.Button botonConsultarEstadoDTE;
         private System.Windows.Forms.RadioButton radioProduccion;
         private System.Windows.Forms.RadioButton radioCertificacion;
@@ -486,18 +388,11 @@
         private System.Windows.Forms.Button botonIngresarTimbraje;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button botonValidador;
-        private System.Windows.Forms.Button botonSetPruebas;
-        private System.Windows.Forms.Button botonIntercambio;
-        private System.Windows.Forms.Button botonCesion;
         private System.Windows.Forms.Button botonGetCertificados;
-        private System.Windows.Forms.Button botonLibroGuias;
-        private System.Windows.Forms.Button botonMuestraImpresa;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button botonConfiguracion;
         private System.Windows.Forms.Button botonAgregarRef;
         private System.Windows.Forms.Button botonConsultarEstadoEnvio;
-        private System.Windows.Forms.Button botonFacturaCompra;
         private System.Windows.Forms.Button botonEnviarAlSIIBoletas;
         private System.Windows.Forms.Button botonEnviarAlSIIBoletas_Certificacion;
         private System.Windows.Forms.Button botonGenerarRCOFVacio;
